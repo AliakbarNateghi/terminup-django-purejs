@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+              crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+              rel="stylesheet">
+    </head>
+
+    <body>
+    <label for="list-wrapper">choose</label>
+    <select onclick="addItem()" id="list-wrapper"></select>
+
+
+        <script>
+            let wrapper = document.getElementById('list-wrapper')
+
+            function addItem(title) {
+                document.getElementById('list-wrapper').innerHTML += title
+            }
+
+            let url = 'http://127.0.0.1:8000/api/course-list/'
+
+            fetch(url)
+            .then((response) => response.json())
+            .then(function(data){
+                let list = data;
+                for(let i in list){
+                    let title = `<option class="title code">${list[i].title} ${list[i].code}</option>`
+                    {#let code = `<span class="code">${list[i].code}</span>`#}
+
+                    wrapper.innerHTML += title
+                }
+            })
+        </script>
+
+
+    </body>
+</html>
