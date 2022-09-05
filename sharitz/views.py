@@ -21,15 +21,15 @@ def apiOverview(request):
 
 @api_view(['GET'])
 def courseList(request):
-    tasks = course.objects.all().order_by('-id')
-    serializer = courseSerializer(tasks, many=True)
+    courses = course.objects.all().order_by('-id')
+    serializer = courseSerializer(courses, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def courseDetail(request, pk):
-    tasks = course.objects.get(id=pk)
-    serializer = courseSerializer(tasks, many=False)
+    courses = course.objects.get(id=pk)
+    serializer = courseSerializer(courses, many=False)
     return Response(serializer.data)
 
 
@@ -45,8 +45,8 @@ def courseCreate(request):
 
 @api_view(['POST'])
 def courseUpdate(request, pk):
-    task = course.objects.get(id=pk)
-    serializer = courseSerializer(instance=task, data=request.data)
+    courses = course.objects.get(id=pk)
+    serializer = courseSerializer(instance=courses, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
@@ -56,8 +56,8 @@ def courseUpdate(request, pk):
 
 @api_view(['DELETE'])
 def courseDelete(request, pk):
-    task = course.objects.get(id=pk)
-    task.delete()
+    courses = course.objects.get(id=pk)
+    courses.delete()
 
     return Response('Deleted')
 
