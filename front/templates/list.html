@@ -15,40 +15,27 @@
     </head>
 
     <body>
-        <form action="course.html" method="post">
-            <label for="list-wrapper">choose</label>
-            <br>
-            <select onclick="addItem()" id="list-wrapper"></select>
-            <br><br>
-            <input value="submit" type="button" class="btn btn-primary">
-        </form>
+        {% regroup courses by college as college_list %}
+        <label for="college">colleges</label>
+        <select id="college">
+        {% for college in college_list %}
+            <option onclick="showDetails()">{{ college.grouper }}</option>
+                {% for course in college.list %}
+{#                    <ul>#}
+{#                        <li>{{ course.title }}</li>#}
+{#                    </ul>#}
+                {% endfor %}
+        {% endfor %}
+        </select>
+
+        <p id="details">innerHTML</p>
 
         <script>
-            let wrapper = document.getElementById('list-wrapper')
+            let detail = document.getElementById('details')
 
-            function addItem(title) {
-                document.getElementById('list-wrapper').innerHTML += title
+            function showDetails() {
+                detail.innerHTML = `{{ course.title }}`
             }
-
-            let url = 'http://127.0.0.1:8000/api/course-list/'
-
-            fetch(url)
-            .then((response) => response.json())
-            .then(function(data){
-                let list = data;
-                for(let i in list){
-                    let title = `<option class="title">${list[i].title}</option>`
-                    let code = `<option class="title">${list[i].code}</option>`
-                    let unit = `<option class="title">${list[i].unit}</option>`
-                    let professor = `<option class="title">${list[i].professor}</option>`
-                    let college = `<option class="title">${list[i].college}</option>`
-                    let group = `<option class="title">${list[i].group}</option>`
-
-                    let item = `${title}`
-
-                    wrapper.innerHTML += item
-                }
-            })
         </script>
 
     </body>
