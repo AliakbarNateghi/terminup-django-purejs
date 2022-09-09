@@ -1,0 +1,64 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin: 0;
+}
+
+.main-table{
+    border-collapse: collapse;
+    margin: 20px 35px;
+    font-size: 18px;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.main-table thead tr{
+    background-color: black;
+    color: #ffffff;
+    text-align: left;
+}
+
+.main-table th,
+.main-table td{
+    padding: 25px 50px;
+}
+.main-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+.main-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+.main-table tbody tr:last-of-type{
+    border-bottom: 2px solid black;
+}
+
+.main-table thead tr th{
+    padding: 20px 40px;
+}
+.main-table tbody tr td{
+    padding: 30px 0;
+}
+.faculty-selection{
+    margin: 20px 20px 20px 0;
+    width: 300px;
+    padding: 15px;
+}
+.search-course{
+    padding: 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    position: absolute;
+    width: 298px;
+    border-color: black;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+}
+.show-course{
+    margin: 0 20px 20px 20px ;
+    width: 300px;
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
