@@ -8,14 +8,24 @@ from . import custom
 from .custom import WeeklyChoise, ExamChoise
 
 
-# def list(request):
-#     return render(request, 'list.html')
+def loginView(request):
+    return render(request, 'login.html')
+
+
+def idView(request):
+    return render(request, 'Id.html')
 
 
 class courseList(ListView):
     model = course
     context_object_name = 'courses'
     template_name = 'list.html'
+
+
+class mainList(ListView):
+    model = course
+    context_object_name = 'main'
+    template_name = 'main.html'
 
 
 class CourseDetail(DetailView):
@@ -54,4 +64,3 @@ class CourseDelete(DeleteView):
     model = studentChoise
     context_object_name = 'course'
     success_url = reverse_lazy('courses')
-

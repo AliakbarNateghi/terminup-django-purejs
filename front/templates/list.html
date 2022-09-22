@@ -9,69 +9,33 @@
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
               integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
               crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="list.css" />
+
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
               rel="stylesheet">
     </head>
 
     <body>
-
         {% regroup courses by college as college_list %}
-        <div class="container d-flex justify-content-center align-items-center">
-            <div class="dropdown">
+        <label for="college">colleges</label>
+        <select id="college">
         {% for college in college_list %}
-
-{#            <select id="choose">#}
-                <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    <span>{{ college.grouper }}</span>
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <option onclick="showDetails()">{{ college.grouper }}</option>
                 {% for course in college.list %}
-                    <li class="dropdown-item" >{{ course.title }}</li>
+{#                    <ul>#}
+{#                        <li>{{ course.title }}</li>#}
+{#                    </ul>#}
                 {% endfor %}
-                </ul>
-{#            </select>#}
-
         {% endfor %}
-            </div>
-            </div>
+        </select>
 
-
-{#        <label for="colleges">colleges</label>#}
-{#        <select id="colleges">#}
-{#            <option>choose</option>#}
-{#        </select>#}
+        <p id="details">innerHTML</p>
 
         <script>
             let detail = document.getElementById('details')
 
-            let url = 'http://127.0.0.1:8000/api/course-list/'
-
-            fetch(url)
-            .then((resp) => resp.json())
-            .then(function(data){
-
-                let collegeArr = []
-                for(let i in data){
-
-                    function showDetails(college){
-                        for(let i in data){
-                            if(college === data[i].college){
-                                detail.innerHTML += `${data[i].title}`
-                            }
-                        }
-                    }
-
-                    collegeArr.push(`<option>${data[i].college}</option>`)
-
-                }
-
-                let uniqueColleges = [...new Set(collegeArr)]
-                for(let i in uniqueColleges){
-                document.getElementById('colleges').innerHTML += uniqueColleges[i]
-                }
-            })
+            function showDetails() {
+                detail.innerHTML = `{{ course.title }}`
+            }
         </script>
 
     </body>
