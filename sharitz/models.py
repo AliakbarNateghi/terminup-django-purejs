@@ -27,8 +27,18 @@ class ExamDate(models.Model):
         return f'{self.date} : {self.startTime}'
 
 
+class College(models.Model):
+    college = models.CharField(blank=True, null=True, max_length=256)
+
+    def __str__(self):
+        return f'{self.college}'
+
+
 class course(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                                blank=True)
+
+    college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
     weeklySchedule = models.ForeignKey(WeeklySchedule, null=True,
@@ -40,7 +50,6 @@ class course(models.Model):
                                  related_name='backExam')
 
     title = models.CharField(blank=True, null=True, max_length=256)
-    college = models.CharField(blank=True, null=True, max_length=256)
     professor = models.CharField(blank=True, null=True, max_length=256)
     group = models.IntegerField(blank=True, null=True)
     unit = models.IntegerField(blank=True, null=True)
@@ -57,13 +66,18 @@ class studentChoise(models.Model):
     title = models.CharField(blank=True, null=True, max_length=256)
     code = models.IntegerField(blank=True, null=True)
     professor = models.CharField(blank=True, null=True, max_length=256)
+
     weeklySchedule = models.ForeignKey(WeeklySchedule, null=True,
                                        on_delete=models.CASCADE,
                                        related_name='frontWeek')
+
     examDate = models.ForeignKey(ExamDate, null=True,
                                  on_delete=models.CASCADE,
                                  related_name='frontExam')
-    college = models.CharField(blank=True, null=True, max_length=256)
+
+    college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
+                                blank=True)
+
     group = models.IntegerField(blank=True, null=True)
     unit = models.IntegerField(blank=True, null=True)
 

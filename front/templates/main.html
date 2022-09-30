@@ -1,145 +1,160 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main page</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="shariz-main-page.js" defer></script>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+    rel="stylesheet">
+
+    <style>
+        *,*::after, *::before{
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        .main-screen{
+            background-image: url("uni-tabriz5.jpg");
+            background-color: white;
+            height: 100vh;
+            width: 100vw;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container{
+            background-color: black;
+            background-color: rgba(0,0,0,0.9);
+            border-radius: 10px;
+            box-shadow: 0 15px 15px 0 rgb(0,0,0);
+            width: 50%;
+            height: 65%;
+            padding: 20px;
+        }
+        .login-form{
+            display: flex;
+            flex-direction: column;
+            margin-top: 100px;
+            gap: 20px;
+        }
+        .user-input{
+            display: flex;
+            flex-direction: column;
+        }
+        .user-input label{
+            color: white;
+            margin-bottom: 5px;
+        }
+        .user-input input{
+            font-size: 20px;
+            color: white;
+            background-color: rgba(161, 161, 161, 0.5);
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+        }
+        .user-input input:focus{
+            box-shadow: 0 0 0 1px dodgerblue;
+        }
+        .login-button{
+            padding: 10px;
+            margin-top: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            outline: none;
+            background-color: rgba(9, 255, 0, 0.2);
+            border-radius: 5px;
+            margin-top: 125px;
+
+        }
+
+        .login-button:hover{
+            background-color: rgb(0, 107, 0);
+        }
+
+        .with-idNumber{
+            display: flex;
+            position: absolute;
+            margin-top: 500px;
+        }
+        .with-idNumber a{
+            color: blue;
+        }
+
+        .main-table{
+            border-collapse: collapse;
+            margin: 20px 35px;
+            font-size: 18px;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .main-table thead tr{
+            background-color: black;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .main-table th,
+        .main-table td{
+            padding: 25px 50px;
+        }
+        .main-table tbody tr{
+            border-bottom: 1px solid #dddddd;
+        }
+        .main-table tbody tr:nth-of-type(even){
+            background-color: #f3f3f3;
+        }
+        .main-table tbody tr:last-of-type{
+            border-bottom: 2px solid black;
+        }
+
+        .main-table thead tr th{
+            padding: 20px 40px;
+        }
+        .main-table tbody tr td{
+            padding: 30px 0;
+        }
+        .faculty-selection{
+            margin: 20px 20px 20px 0;
+            width: 300px;
+            padding: 15px;
+        }
+        .search-course{
+            padding: 15px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            position: absolute;
+            width: 298px;
+            border-color: black;
+            box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.15);
+        }
+        .show-course{
+            margin: 0 20px 20px 20px ;
+            width: 300px;
+            height: 500px;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+
+    </style>
 </head>
 <body>
-    <div class="main">
-        <div class="sidenav" style="float: left;">
-            <select class="faculty-selection" id="faculty-selection">
-                <option value="">انتخاب دانشکده...</option>
-                <option value="">دانشکده فیزیک</option>
-                <option value="">دانشکده برق و کامپیوتر</option>
-            </select>
-            <div class="show-course" id="show-course">
-                <div class="search-input">
-                    <input type="text" class="search-course" id="search-course" placeholder="جستجو...">
-                </div>
-            </div>
-        </div>
-        <table class="main-table">
-            <thead>
-                <tr>
-                    <th>شنبه</th>
-                    <th>یکشنبه</th>
-                    <th>دوشنبه</th>
-                    <th>سه شنبه</th>
-                    <th>چهارشنبه</th>
-                    <th>پنجشنبه</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    {% block content %}
+
+    {% endblock content %}
 </body>
 </html>

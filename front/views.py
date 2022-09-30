@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy
-from sharitz.models import studentChoise, course
+from sharitz.models import studentChoise, course, College
 from . import custom
 from .custom import WeeklyChoise, ExamChoise
 
@@ -24,8 +24,14 @@ class courseList(ListView):
 
 class mainList(ListView):
     model = course
-    context_object_name = 'main'
-    template_name = 'main.html'
+    context_object_name = 'courses'
+    template_name = 'mainpage.html'
+
+
+class collegeList(ListView):
+    model = College
+    context_object_name = 'colleges'
+    template_name = 'mainpage.html'
 
 
 class CourseDetail(DetailView):

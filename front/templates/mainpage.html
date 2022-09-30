@@ -1,0 +1,204 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{#    <div class="main">#}
+{#        <div class="sidenav" style="float: left;">#}
+{#            {% regroup courses by college as college_list %}#}
+{#            <label for="college"> انتخاب دانشکده </label>#}
+{#            <select id="college">#}
+{#            {% for college in college_list %}#}
+{#                <option onclick="showDetails()">{{ college.grouper }}</option>#}
+{#                    {% for course in college.list %}#}
+{#                        <ul>#}
+{#                            <li>{{ course.title }}</li>#}
+{#                        </ul>#}
+{#                    {% endfor %}#}
+{#            {% endfor %}#}
+{#            </select>#}
+{##}
+{#            <div class="show-course" id="show-course">#}
+{#                <div class="search-input">#}
+{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+
+{#    <div class="main">#}
+{#        <div class="sidenav" style="float: left">#}
+{#            <div class="show-course" id="show-course">#}
+{#                <label>انتخاب کن</label>#}
+{#                <select id="college">#}
+{#                    {% for college in colleges %}#}
+{#                        <option value="{{ college }}">{{ college }}</option>#}
+{#                    {% endfor %}#}
+{#                </select>#}
+{#                <br><br>#}
+{#                <p>...................................................................</p>#}
+{#                <div class="search-input">#}
+{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+    <div class="main">
+        <div class="sidenav" style="float: left;">
+            <div class="show-course" id="show-course">
+                <label>انتخاب من</label>
+                <select id="college-select">
+
+                </select>
+
+                <div class="search-input">
+                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+
+            buildList()
+
+            function buildList(){
+
+                let collegeOption = document.getElementById('college-select')
+
+                let url = 'http://127.0.0.1:8000/api/college-list/';
+
+                fetch(url).then((response) => response.json())
+                .then(function(data){
+                    console.log('Data:', data)
+
+                    let list = data;
+                    let listOfColleges = [];
+
+                    for(let i in list){
+                        collegeOption.innerHTML += `<option>${ list[i] }</option>`
+                    }
+
+                })
+            }
+        </script>
+        <table class="main-table">
+            <thead>
+                <tr>
+                    <th>شنبه</th>
+                    <th>یکشنبه</th>
+                    <th>دوشنبه</th>
+                    <th>سه شنبه</th>
+                    <th>چهارشنبه</th>
+                    <th>پنجشنبه</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

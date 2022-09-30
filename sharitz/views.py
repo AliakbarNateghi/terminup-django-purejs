@@ -2,14 +2,15 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import courseSerializer
-from .models import course
+from .serializers import courseSerializer, collegeSerializer
+from .models import course, College
 
 
 @api_view(['GET'])
 def apiOverview(request):
     api_urls = {
         'List': '/course-list',
+        'college': '/college-list',
         'Detail View': '/course-detail/<str:pk>/',
         'Create': '/course-create/',
         'Update': '/course-update/<str:pk>/',
@@ -23,6 +24,13 @@ def apiOverview(request):
 def courseList(request):
     courses = course.objects.all().order_by('-id')
     serializer = courseSerializer(courses, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def collegeList(request):
+    colleges = College.objects.all().order_by('-id')
+    serializer = collegeSerializer(colleges, many=True)
     return Response(serializer.data)
 
 
