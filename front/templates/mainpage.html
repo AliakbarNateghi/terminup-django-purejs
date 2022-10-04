@@ -42,45 +42,184 @@
 {#        </div>#}
 {#    </div>#}
 
-    <div class="main">
+        <div class="main">
         <div class="sidenav" style="float: left;">
+
+            <select>
+                {% for college in colleges %}
+                    <option onclick="">{{ college }}</option>
+                {% endfor %}
+            </select>
+
             <div class="show-course" id="show-course">
-                <label>انتخاب من</label>
-                <select id="college-select">
-
-                </select>
-
                 <div class="search-input">
                     <input type="text" class="search-course" id="search-course" placeholder="جستجو">
                 </div>
             </div>
+
         </div>
-    </div>
 
-        <script type="text/javascript">
+{#    <div class="main">#}
+{#        <div class="sidenav" style="float: left;">#}
+{#            <div class="show-course" id="show-course">#}
+{#                <label>انتخاب کن</label>#}
+{#                <select id="college-select">#}
+{##}
+{#                </select>#}
+{#                <br><br><br><br><br>#}
+{#                <ul id="course-of-the-college">#}
+{##}
+{#                </ul>#}
+{#                <div class="search-input">#}
+{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
-            buildList()
-
-            function buildList(){
-
-                let collegeOption = document.getElementById('college-select')
-
-                let url = 'http://127.0.0.1:8000/api/college-list/';
-
-                fetch(url).then((response) => response.json())
-                .then(function(data){
-                    console.log('Data:', data)
-
-                    let list = data;
-                    let listOfColleges = [];
-
-                    for(let i in list){
-                        collegeOption.innerHTML += `<option>${ list[i] }</option>`
-                    }
-
-                })
-            }
-        </script>
+{#        <script type="text/javascript">#}
+{##}
+{#            buildList()#}
+            {#myFunc()#}
+{##}
+            {#function myFunc(collegeID){#}
+            {##}
+            {#    let url = 'http://127.0.0.1:8000/api/course-list/';#}
+            {##}
+            {#    let courseOption = document.getElementById('course-of-the-college')#}
+            {##}
+            {#    #}
+            {##}
+            {#    let resp = fetch(url).then((response) => response.json())#}
+            {#    .then(data => function (data){#}
+            {#        #}
+            {#        function drop(data) {#}
+            {#            courseOption.innerHTML = ``#}
+            {#            for (let k in data) {#}
+            {#                if (data[k].college == 3) {#}
+            {#                    courseOption.innerHTML += `<li>${data[k].title}</li>`#}
+            {#                }#}
+            {#            }#}
+            {#        }#}
+            {#    #}
+            {#    })#}
+            {#    #}
+            {#    console.log('resp:', resp)#}
+            {##}
+            {# }#}
+{##}
+{##}
+{#            // The function for the menu dropdown#}
+{#            function buildList(){#}
+{##}
+{#                let collegeOption = document.getElementById('college-select')#}
+{##}
+{#                let courseOption = document.getElementById('course-of-the-college')#}
+{##}
+{#                // Fetching the course-list url and converting it to an array#}
+{#                let url = 'http://127.0.0.1:8000/api/course-list/';#}
+{#                fetch(url).then((response) => response.json())#}
+{#                .then(function(data){#}
+{#                    console.log('Data:', data)#}
+{##}
+                    {#function myFunc(collegeID){#}
+                    {#    for(let i in data){#}
+                    {#        if(data[i].college == collegeID){#}
+                    {#            courseOption.innerHTML += `<li>${data[i].title}</li>`#}
+                    {#        }#}
+                    {#    }#}
+                    {# }#}
+{##}
+{##}
+{#                    // Adding the college ID's to an array#}
+{#                    let ListOfColleges = [];#}
+{#                    for(let i in data){#}
+{#                        ListOfColleges.push(data[i].college)#}
+{#                    }#}
+{#                    // Removing duplicates from the ListOfColleges#}
+{#                    let listOfColleges = [...new Set(ListOfColleges)];#}
+{#                    console.log('listOfColleges:', listOfColleges)#}
+{##}
+{##}
+{#                    // Adding the college names based on their ID's to dropdown menu#}
+{#                    let item#}
+{#                    for(let j in listOfColleges){#}
+{#                        if (listOfColleges[j] == 1) {#}
+                            {#document.getElementById('collegeName').removeEventListener('click', drop())#}
+{#                            item = `<option id="collegeName">هوافضا</option>`#}
+{#                            collegeOption.innerHTML += item#}
+{##}
+{#                            function drop() {#}
+{#                                courseOption.innerHTML = ``#}
+{#                                for (let k in data) {#}
+{#                                    if (data[k].college == 1) {#}
+{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
+{#                                    }#}
+{#                                }#}
+{#                            }#}
+{##}
+{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
+{#                        } else if (listOfColleges[j] == 2) {#}
+{#                            item = `<option id="collegeName">فیزیک</option>`#}
+{#                            collegeOption.innerHTML += item#}
+{##}
+{#                            function drop() {#}
+{#                                courseOption.innerHTML = ``#}
+{#                                for (let k in data) {#}
+{#                                    if (data[k].college == 2) {#}
+{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
+{#                                    }#}
+{#                                }#}
+{#                            }#}
+{##}
+{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
+{#                        } else if (listOfColleges[j] == 3) {#}
+{#                            item = `<option id="collegeName">برق</option>`#}
+{#                            collegeOption.innerHTML += item#}
+{##}
+{#                            function drop() {#}
+{#                                courseOption.innerHTML = ``#}
+{#                                for (let k in data) {#}
+{#                                    if (data[k].college == 3) {#}
+{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
+{#                                    }#}
+{#                                }#}
+{#                            }#}
+{##}
+{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
+{#                        } else if (listOfColleges[j] == 4) {#}
+{#                            item = `<option id="collegeName">مکانیک</option>`#}
+{#                            collegeOption.innerHTML += item#}
+{##}
+{#                            function drop() {#}
+{#                                courseOption.innerHTML = ``#}
+{#                                for (let k in data) {#}
+{#                                    if (data[k].college == 4) {#}
+{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
+{#                                    }#}
+{#                                }#}
+{#                            }#}
+{##}
+{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
+{#                        } else {#}
+{#                            console.log('none')#}
+{#                        }#}
+{#                    }#}
+{##}
+                    {#function myFunc(collegeID){#}
+                    {#    for(let i in data){#}
+                    {#        if(data[i].college == collegeID){#}
+                    {#            courseOption.innerHTML += `<li>${data[i].title}</li>`#}
+                    {#        }#}
+                    {#    }#}
+                    {# }#}
+{##}
+{#                })#}
+{##}
+{#            }#}
+{##}
+{##}
+{#        </script>#}
         <table class="main-table">
             <thead>
                 <tr>

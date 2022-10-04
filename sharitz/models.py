@@ -30,6 +30,9 @@ class ExamDate(models.Model):
 class College(models.Model):
     college = models.CharField(blank=True, null=True, max_length=256)
 
+    class Meta:
+        ordering = ['college']
+
     def __str__(self):
         return f'{self.college}'
 
