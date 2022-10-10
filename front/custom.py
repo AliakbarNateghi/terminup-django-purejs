@@ -1,4 +1,4 @@
-from sharitz.models import studentChoise, WeeklySchedule, ExamDate
+from sharitz.models import studentChoise, ws, ExamDate
 
 
 def WeeklyChoise(student):

@@ -1,343 +1,204 @@
 {% extends 'main.html' %}
 {% block content %}
 
-{#    <div class="main">#}
-{#        <div class="sidenav" style="float: left;">#}
-{#            {% regroup courses by college as college_list %}#}
-{#            <label for="college"> انتخاب دانشکده </label>#}
-{#            <select id="college">#}
-{#            {% for college in college_list %}#}
-{#                <option onclick="showDetails()">{{ college.grouper }}</option>#}
-{#                    {% for course in college.list %}#}
-{#                        <ul>#}
-{#                            <li>{{ course.title }}</li>#}
-{#                        </ul>#}
-{#                    {% endfor %}#}
-{#            {% endfor %}#}
-{#            </select>#}
-{##}
-{#            <div class="show-course" id="show-course">#}
-{#                <div class="search-input">#}
-{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
-
-{#    <div class="main">#}
-{#        <div class="sidenav" style="float: left">#}
-{#            <div class="show-course" id="show-course">#}
-{#                <label>انتخاب کن</label>#}
-{#                <select id="college">#}
-{#                    {% for college in colleges %}#}
-{#                        <option value="{{ college }}">{{ college }}</option>#}
-{#                    {% endfor %}#}
-{#                </select>#}
-{#                <br><br>#}
-{#                <p>...................................................................</p>#}
-{#                <div class="search-input">#}
-{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-        <div class="main">
+    <div class="main">
         <div class="sidenav" style="float: left;">
-
-            <select>
+            <select id="select-college">
                 {% for college in colleges %}
-                    <option onclick="">{{ college }}</option>
+                    <p id="counter"></p>
+                    <option class="college" id="{{ college }}" onclick="function1({{ college }})">{{ college }}</option>
                 {% endfor %}
             </select>
+            <br/><br/><br/><br/><br/>
+            <ul id="course-list">
 
-            <div class="show-course" id="show-course">
-                <div class="search-input">
-                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">
-                </div>
-            </div>
-
+            </ul>
         </div>
 
-{#    <div class="main">#}
-{#        <div class="sidenav" style="float: left;">#}
-{#            <div class="show-course" id="show-course">#}
-{#                <label>انتخاب کن</label>#}
-{#                <select id="college-select">#}
-{##}
-{#                </select>#}
-{#                <br><br><br><br><br>#}
-{#                <ul id="course-of-the-college">#}
-{##}
-{#                </ul>#}
-{#                <div class="search-input">#}
-{#                    <input type="text" class="search-course" id="search-course" placeholder="جستجو">#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-
-{#        <script type="text/javascript">#}
-{##}
-{#            buildList()#}
-            {#myFunc()#}
-{##}
-            {#function myFunc(collegeID){#}
-            {##}
-            {#    let url = 'http://127.0.0.1:8000/api/course-list/';#}
-            {##}
-            {#    let courseOption = document.getElementById('course-of-the-college')#}
-            {##}
-            {#    #}
-            {##}
-            {#    let resp = fetch(url).then((response) => response.json())#}
-            {#    .then(data => function (data){#}
-            {#        #}
-            {#        function drop(data) {#}
-            {#            courseOption.innerHTML = ``#}
-            {#            for (let k in data) {#}
-            {#                if (data[k].college == 3) {#}
-            {#                    courseOption.innerHTML += `<li>${data[k].title}</li>`#}
-            {#                }#}
-            {#            }#}
-            {#        }#}
-            {#    #}
-            {#    })#}
-            {#    #}
-            {#    console.log('resp:', resp)#}
-            {##}
-            {# }#}
-{##}
-{##}
-{#            // The function for the menu dropdown#}
-{#            function buildList(){#}
-{##}
-{#                let collegeOption = document.getElementById('college-select')#}
-{##}
-{#                let courseOption = document.getElementById('course-of-the-college')#}
-{##}
-{#                // Fetching the course-list url and converting it to an array#}
-{#                let url = 'http://127.0.0.1:8000/api/course-list/';#}
-{#                fetch(url).then((response) => response.json())#}
-{#                .then(function(data){#}
-{#                    console.log('Data:', data)#}
-{##}
-                    {#function myFunc(collegeID){#}
-                    {#    for(let i in data){#}
-                    {#        if(data[i].college == collegeID){#}
-                    {#            courseOption.innerHTML += `<li>${data[i].title}</li>`#}
-                    {#        }#}
-                    {#    }#}
-                    {# }#}
-{##}
-{##}
-{#                    // Adding the college ID's to an array#}
-{#                    let ListOfColleges = [];#}
-{#                    for(let i in data){#}
-{#                        ListOfColleges.push(data[i].college)#}
-{#                    }#}
-{#                    // Removing duplicates from the ListOfColleges#}
-{#                    let listOfColleges = [...new Set(ListOfColleges)];#}
-{#                    console.log('listOfColleges:', listOfColleges)#}
-{##}
-{##}
-{#                    // Adding the college names based on their ID's to dropdown menu#}
-{#                    let item#}
-{#                    for(let j in listOfColleges){#}
-{#                        if (listOfColleges[j] == 1) {#}
-                            {#document.getElementById('collegeName').removeEventListener('click', drop())#}
-{#                            item = `<option id="collegeName">هوافضا</option>`#}
-{#                            collegeOption.innerHTML += item#}
-{##}
-{#                            function drop() {#}
-{#                                courseOption.innerHTML = ``#}
-{#                                for (let k in data) {#}
-{#                                    if (data[k].college == 1) {#}
-{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
-{#                                    }#}
-{#                                }#}
-{#                            }#}
-{##}
-{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
-{#                        } else if (listOfColleges[j] == 2) {#}
-{#                            item = `<option id="collegeName">فیزیک</option>`#}
-{#                            collegeOption.innerHTML += item#}
-{##}
-{#                            function drop() {#}
-{#                                courseOption.innerHTML = ``#}
-{#                                for (let k in data) {#}
-{#                                    if (data[k].college == 2) {#}
-{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
-{#                                    }#}
-{#                                }#}
-{#                            }#}
-{##}
-{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
-{#                        } else if (listOfColleges[j] == 3) {#}
-{#                            item = `<option id="collegeName">برق</option>`#}
-{#                            collegeOption.innerHTML += item#}
-{##}
-{#                            function drop() {#}
-{#                                courseOption.innerHTML = ``#}
-{#                                for (let k in data) {#}
-{#                                    if (data[k].college == 3) {#}
-{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
-{#                                    }#}
-{#                                }#}
-{#                            }#}
-{##}
-{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
-{#                        } else if (listOfColleges[j] == 4) {#}
-{#                            item = `<option id="collegeName">مکانیک</option>`#}
-{#                            collegeOption.innerHTML += item#}
-{##}
-{#                            function drop() {#}
-{#                                courseOption.innerHTML = ``#}
-{#                                for (let k in data) {#}
-{#                                    if (data[k].college == 4) {#}
-{#                                        courseOption.innerHTML += `<li>${data[k].title}</li>`#}
-{#                                    }#}
-{#                                }#}
-{#                            }#}
-{##}
-{#                            document.getElementById('collegeName').addEventListener("click", drop())#}
-{#                        } else {#}
-{#                            console.log('none')#}
-{#                        }#}
-{#                    }#}
-{##}
-                    {#function myFunc(collegeID){#}
-                    {#    for(let i in data){#}
-                    {#        if(data[i].college == collegeID){#}
-                    {#            courseOption.innerHTML += `<li>${data[i].title}</li>`#}
-                    {#        }#}
-                    {#    }#}
-                    {# }#}
-{##}
-{#                })#}
-{##}
-{#            }#}
-{##}
-{##}
-{#        </script>#}
-        <table class="main-table">
+        <table class="main-table" style="float: right">
             <thead>
                 <tr>
-                    <th>شنبه</th>
-                    <th>یکشنبه</th>
-                    <th>دوشنبه</th>
-                    <th>سه شنبه</th>
-                    <th>چهارشنبه</th>
                     <th>پنجشنبه</th>
+                    <th>چهارشنبه</th>
+                    <th>سه شنبه</th>
+                    <th>دوشنبه</th>
+                    <th>یکشنبه</th>
+                    <th>شنبه</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+            <tbody id="table-body">
+{#                <label id="label" style="background-color: aqua; width: 200px;">body</label>#}
             </tbody>
         </table>
+
     </div>
+
+        <script type="text/javascript">
+
+            function function1(rawCollege){
+                let url = "http://127.0.0.1:8000/api/course-list/";
+                fetch(url).then((response) => response.json())
+                    .then(function(data){
+                        let courseList = document.getElementById("course-list")
+                        let college = rawCollege.innerHTML
+                        let item = "";
+                        if(college == 'برق'){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(3 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "ریاضی"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(6 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "cs"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(8 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "عمران"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(5 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "فیزیک"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(2 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college ==  "ce"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(7 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "مکانیک"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(4 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "میمشیمی"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(9 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "هوافضا"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(1 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else if(college == "نفت"){
+                            courseList.innerHTML = "";
+                            for(let i in data){
+                                if(10 == data[i].college){
+                                    {#console.log(data[i].title)#}
+                                    item = data[i].title;
+                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                }
+                            }
+                        }else(console.log(college))
+
+                    })
+             }
+
+            function function2(courseId){
+                Promise.all([
+                    fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
+                    fetch("http://127.0.0.1:8000/api/ws-list/").then(resp => resp.json()),
+                ]).then(function(data){
+                    let listOfCourses = data[0];
+                    let listOfWS = data[1];
+
+                    let wsId;
+                    for(let i in listOfCourses){
+                    if(courseId == listOfCourses[i].id){
+                        wsId = listOfCourses[i].ws;
+                        for(let j in listOfWS){
+                        if(wsId == listOfWS[j].id){
+                            let day1 = listOfWS[j].day1;
+                            let day2 = listOfWS[j].day2;
+                            let start = listOfWS[j].start;
+                            let time = listOfWS[j].time;
+                            let tableBody = document.getElementById("table-body")
+                            let height = 40 * time
+                            console.log('height: ', height)
+                            let paddingRight1 = 200 * day1 + 100
+                            console.log('firstDayPaddingRight: ', paddingRight1)
+                            let paddingRight2 = 200 * day2 + 100
+                            console.log('secondDayPaddingRight: ', paddingRight2)
+                            let paddingTop = 40 * start - 140
+                            console.log('paddingTop: ', paddingTop)
+                            tableBody.innerHTML +=
+                                `<label style="background-color: aqua;
+                                    width: 200px; height: ${height}px;
+                                             padding-top: ${paddingTop}px;
+                                    padding-right: ${paddingRight1}px;">${listOfCourses[i].title}
+                                </label>`
+                            {#label.style.display = `height: ${height}px;`#}
+                            {#label.style.backgroundPosition = '10px 50px'#}
+                        }
+                    }
+                    }
+
+
+                }
+                })
+            }
+
+            {#function function2(){#}
+            {#    let tableBody = document.getElementById("table-body");#}
+            {#    for (let i = 0; i < 26; i++){#}
+            {#        tableBody.innerHTML += `<tr>#}
+            {#                                    <td id="saturday-${i}">|</td>#}
+            {#                                    <td id="sunday-${i}">|</td>#}
+            {#                                    <td id="monday-${i}">|</td>#}
+            {#                                    <td id="tuesday-${i}">|</td>#}
+            {#                                    <td id="wednesday-${i}">|</td>#}
+            {#                                    <td id="thursday-${i}">|</td>#}
+            {#                                    <td>${i}</td>#}
+            {#                                </tr>`;#}
+            {#    }#}
+            {# }#}
+            {#function2();#}
+
+        </script>
+
+
 
 {% endblock content %}
