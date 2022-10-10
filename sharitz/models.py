@@ -8,23 +8,23 @@ from django.db import models
 #                                 related_name='students')
 
 
-class WeeklySchedule(models.Model):
-    day0 = models.IntegerField(blank=True, null=True)  # Saturday: 0 , ... , Friday: 6
-    day1 = models.IntegerField(blank=True, null=True)
-    startTime = models.FloatField(blank=True, null=True)
-    endTime = models.FloatField(blank=True, null=True)
+class ws(models.Model):  # WeeklySchedule
+    day1 = models.IntegerField(blank=True, null=True)  # Saturday: 0 , ... , Friday: 6
+    day2 = models.IntegerField(blank=True, null=True)
+    start = models.FloatField(blank=True, null=True)
+    time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.day0} & {self.day1} : {self.startTime}'
+        return f'{self.day1} & {self.day2} : {self.start}-{self.start + self.time}'
 
 
 class ExamDate(models.Model):
     date = models.DateField()
-    startTime = models.FloatField(blank=True, null=True)
-    endTime = models.FloatField(blank=True, null=True)
+    start = models.FloatField(blank=True, null=True)
+    time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.date} : {self.startTime}'
+        return f'{self.date} : {self.start}'
 
 
 class College(models.Model):
@@ -44,9 +44,9 @@ class course(models.Model):
     college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
-    weeklySchedule = models.ForeignKey(WeeklySchedule, null=True,
-                                       on_delete=models.CASCADE,
-                                       related_name='backWeek')
+    ws = models.ForeignKey(ws, null=True,
+                           on_delete=models.CASCADE,
+                           related_name='backWeek')
 
     examDate = models.ForeignKey(ExamDate, null=True,
                                  on_delete=models.CASCADE,
@@ -70,9 +70,9 @@ class studentChoise(models.Model):
     code = models.IntegerField(blank=True, null=True)
     professor = models.CharField(blank=True, null=True, max_length=256)
 
-    weeklySchedule = models.ForeignKey(WeeklySchedule, null=True,
-                                       on_delete=models.CASCADE,
-                                       related_name='frontWeek')
+    ws = models.ForeignKey(ws, null=True,
+                           on_delete=models.CASCADE,
+                           related_name='frontWeek')
 
     examDate = models.ForeignKey(ExamDate, null=True,
                                  on_delete=models.CASCADE,
@@ -86,4 +86,3 @@ class studentChoise(models.Model):
 
     def __str__(self):
         return f'{self.title} picked by {self.student}'
-

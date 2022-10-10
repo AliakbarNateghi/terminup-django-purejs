@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import WeeklySchedule, ExamDate, course, studentChoise, College
+from .models import ws, ExamDate, course, studentChoise, College
 
 
 class courseSerializer(serializers.ModelSerializer):
@@ -11,4 +11,10 @@ class courseSerializer(serializers.ModelSerializer):
 class collegeSerializer(serializers.ModelSerializer):
     class Meta:
         model = College
+        fields = '__all__'
+
+
+class wsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ws
         fields = '__all__'
