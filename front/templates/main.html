@@ -19,11 +19,11 @@
         *,*::after, *::before{
         box-sizing: border-box;
         font-family: Arial, Helvetica, sans-serif, B Koodak;
-        }
+         }
 
-        body{
-            margin: 0;
-        }
+        {#body{#}
+        {#    margin: 0;#}
+        {# }#}
 
         .main-screen{
             background-image: url("uni-tabriz5.jpg");
@@ -99,42 +99,51 @@
             color: blue;
         }
 
+        .hours {
+            margin-right: 15px;
+            margin-top: 30px;
+            width: 10px;
+            float: right;
+            line-height: 50px;
+        }
 
-        .main-table{
+        .main-table {
+            {#background-color: #4293b0;#}
+            position: relative;
             border-collapse: collapse;
-            margin: 50px 70px;
-            font-size: 15px;
-            max-width: 300px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+            margin-right: 20px;
+            width: 1626px;
+            height: 896px;
+            float: right;
+            display: inline;
          }
 
-        .main-table thead tr{
-            font-family: "B Koodak";
-            background-color: #1b5944;
-            color: black;
+        .sat,
+        .sun,
+        .mon,
+        .tue,
+        .wed,
+        .thu {
+            color: lightgoldenrodyellow;
+            background-color: #4293b0;
+            height: 30px;
+            width: 271px;
+            text-align: center;
+            font-size: 20px;
+            display: inline-block;
+            border: 1px solid black;
+         }
+
+        .course {
+            position: absolute;
+            border: 1px solid black;
+            background-color: lightgoldenrodyellow;
+            width: 271px;
             text-align: center;
          }
 
-        .main-table th,
-        .main-table td{
-            {#padding: 25px 50px;#}
-         }
-
-        .main-table tbody tr{
-            border-bottom: 3px solid #dddddd;
-         }
-
-        .main-table tbody tr:last-of-type{
-            border-bottom: 2px solid black;
-         }
-
-        .main-table thead tr th{
-            padding: 10px 100px;
-         }
-        {#.main-table tbody tr td{#}
-        {#    padding: 5px 0;#}
-        {#    text-align: center;#}
-        {# }#}
 
     </style>
 </head>

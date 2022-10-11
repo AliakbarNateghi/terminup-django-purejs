@@ -5,7 +5,6 @@
         <div class="sidenav" style="float: left;">
             <select id="select-college">
                 {% for college in colleges %}
-                    <p id="counter"></p>
                     <option class="college" id="{{ college }}" onclick="function1({{ college }})">{{ college }}</option>
                 {% endfor %}
             </select>
@@ -13,23 +12,21 @@
             <ul id="course-list">
 
             </ul>
+            <br/><br/><br/><br/><br/>
+            <div class="temporary-list" id="temporary-list" style="">
+
+            </div>
         </div>
 
-        <table class="main-table" style="float: right">
-            <thead>
-                <tr>
-                    <th>پنجشنبه</th>
-                    <th>چهارشنبه</th>
-                    <th>سه شنبه</th>
-                    <th>دوشنبه</th>
-                    <th>یکشنبه</th>
-                    <th>شنبه</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-{#                <label id="label" style="background-color: aqua; width: 200px;">body</label>#}
-            </tbody>
-        </table>
+        <div class="hours" id="hours">
+        </div>
+
+        <div class="main-table">
+            <figure class="square thu">پنج شنبه</figure><figure class="square wed">چهارشنبه</figure><figure class="square tue">سه شنبه</figure><figure class="square mon">دوشنبه</figure><figure class="square sun">یک شنبه</figure><figure class="square sat">شنبه</figure>
+            <div id="main-table">
+
+            </div>
+        </div>
 
     </div>
 
@@ -40,22 +37,22 @@
                 fetch(url).then((response) => response.json())
                     .then(function(data){
                         let courseList = document.getElementById("course-list")
+
                         let college = rawCollege.innerHTML
                         let item = "";
                         if(college == 'برق'){
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(3 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
-                                    courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
+                                    console.log(data[i].id)
+                                    courseList.innerHTML += `<li id="${data[i].id}" onmouseover="function3(${ data[i].code },${ data[i].title },${ data[i].professor },${ data[i].ws },${ data[i].unit },${ data[i].group },${ data[i].examDate })" onmouseout="function4()" onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
                             }
                         }else if(college == "ریاضی"){
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(6 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -64,7 +61,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(8 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -73,7 +69,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(5 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -82,7 +77,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(2 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -91,7 +85,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(7 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -100,7 +93,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(4 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -109,7 +101,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(9 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -118,7 +109,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(1 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -127,7 +117,6 @@
                             courseList.innerHTML = "";
                             for(let i in data){
                                 if(10 == data[i].college){
-                                    {#console.log(data[i].title)#}
                                     item = data[i].title;
                                     courseList.innerHTML += `<li onclick="function2(${ data[i].id })">${ item }</li>`
                                 }
@@ -137,6 +126,10 @@
                     })
              }
 
+            for(let j = 7; j < 21; j++){
+                document.getElementById("hours").innerHTML += `<p>${ j }</p>`
+            }
+
             function function2(courseId){
                 Promise.all([
                     fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
@@ -144,36 +137,46 @@
                 ]).then(function(data){
                     let listOfCourses = data[0];
                     let listOfWS = data[1];
-
+                    let mainTable = document.getElementById("main-table")
                     let wsId;
                     for(let i in listOfCourses){
                     if(courseId == listOfCourses[i].id){
                         wsId = listOfCourses[i].ws;
                         for(let j in listOfWS){
-                        if(wsId == listOfWS[j].id){
-                            let day1 = listOfWS[j].day1;
-                            let day2 = listOfWS[j].day2;
-                            let start = listOfWS[j].start;
-                            let time = listOfWS[j].time;
-                            let tableBody = document.getElementById("table-body")
-                            let height = 40 * time
-                            console.log('height: ', height)
-                            let paddingRight1 = 200 * day1 + 100
-                            console.log('firstDayPaddingRight: ', paddingRight1)
-                            let paddingRight2 = 200 * day2 + 100
-                            console.log('secondDayPaddingRight: ', paddingRight2)
-                            let paddingTop = 40 * start - 140
-                            console.log('paddingTop: ', paddingTop)
-                            tableBody.innerHTML +=
-                                `<label style="background-color: aqua;
-                                    width: 200px; height: ${height}px;
-                                             padding-top: ${paddingTop}px;
-                                    padding-right: ${paddingRight1}px;">${listOfCourses[i].title}
-                                </label>`
-                            {#label.style.display = `height: ${height}px;`#}
-                            {#label.style.backgroundPosition = '10px 50px'#}
+                            if(wsId == listOfWS[j].id){
+                                let day1 = listOfWS[j].day1;
+                                let day2 = listOfWS[j].day2;
+                                let start = listOfWS[j].start;
+                                let time = listOfWS[j].time;
+                                let height = 75 * time
+                                let right1 = 271 * day1
+                                let right2 = 271 * day2
+                                let top = (start - 7) * 66.6 + 29
+                                mainTable.innerHTML +=
+                                    `<div>
+                                        <div class="course square" style="height: ${height}px;
+                                            top: ${top}px;
+                                            right: ${right1}px;">
+                                            <figure class="">
+                                                ${listOfCourses[i].code}<br>
+                                                <strong>${listOfCourses[i].title}</strong><br>
+                                                ${listOfCourses[i].professor}
+                                            </figure>
+                                        </div>
+                                        <div class="course square" style="height: ${height}px;
+                                            top: ${top}px;
+                                            right: ${right2}px;">
+                                            <figure class="">
+                                                ${listOfCourses[i].code}<br>
+                                                <strong>${listOfCourses[i].title}</strong><br>
+                                                ${listOfCourses[i].professor}
+                                            </figure>
+                                        </div>
+                                    </div>`
+                            }
                         }
-                    }
+                    }else if(courseId == 0){
+                        mainTable.innerHTML = ''
                     }
 
 
@@ -181,21 +184,21 @@
                 })
             }
 
-            {#function function2(){#}
-            {#    let tableBody = document.getElementById("table-body");#}
-            {#    for (let i = 0; i < 26; i++){#}
-            {#        tableBody.innerHTML += `<tr>#}
-            {#                                    <td id="saturday-${i}">|</td>#}
-            {#                                    <td id="sunday-${i}">|</td>#}
-            {#                                    <td id="monday-${i}">|</td>#}
-            {#                                    <td id="tuesday-${i}">|</td>#}
-            {#                                    <td id="wednesday-${i}">|</td>#}
-            {#                                    <td id="thursday-${i}">|</td>#}
-            {#                                    <td>${i}</td>#}
-            {#                                </tr>`;#}
-            {#    }#}
-            {# }#}
-            {#function2();#}
+
+            function function3(code, title, professor, ws, unit, group, examDate){
+                document.getElementById("temporary-list").innerHTML = `<ul>
+                                                                            <li>${code}</li>
+                                                                            <li>${title}</li>
+                                                                            <li>${professor}</li>
+                                                                            <li>${ws}</li>
+                                                                            <li>${unit}</li>
+                                                                            <li>${group}</li>
+                                                                            <li>${examDate}</li>
+                                                                       <ul>`
+             }
+            function function4(){
+                document.getElementById("temporary-list").innerHTML = ''
+             }
 
         </script>
 
