@@ -1,25 +1,26 @@
 {% extends 'main.html' %}
 {% block content %}
 
-    <div class="main-screen">
-        <div class="login-container">
-          <h1 class="login-title">خوش آمدید</h1>
-                <form class="login-form">
-                    <div class="user-input">
-                        <label for="email">ایمیل/نام کاربری:</label>
-                        <input type="email" class="input-email" id="input-email">
-                        <span id="email-massage"></span>
-                    </div>
-                <div class="user-input">
-                        <label for="password">رمز عبور:</label>
-                        <input type="password" class="input-password">
-                        <span id="password-massage"></span>
-                 </div>
-                 <button class="login-button" id="login-button">ورود</button>
-            </form>
+<form action="{% url "login" %}" method="post">
+        {% csrf_token %}
+        <h1 style="font-family: 'B Nazanin'; font-size: 55px; float: right"> ورود </h1>
+        <br><br><br><br><br>
+        <div class="form-group">
+            <label for="username"> نام کاربری </label>
+            <input class="form-control form-control-lg" id="username" type="text" name="username"
+            maxlength="100" style="float: right" size="40" placeholder="ali_akbar" required>
         </div>
-        <div class="with-idNumber"><a href="Id.html">ورود با شماره دانشجویی</a>
+        <br><br><br>
+        <div class="form-group">
+            <label for="password"> رمز عبور </label>
+            <input class="form-control form-control-lg" id="password" type="password" name="password"
+            placeholder="**********" maxlength="256" required>
         </div>
-    </div>
+        <br>
+        <input type="submit" value=" ورود " class="btn btn-primary bg-primary" style="float: right">
+        <br><br><br>
+        <p style="float: right; font-family: 'B Nazanin'; font-size: 20px"> آیا حساب کاربری ندارید؟ <a href="{% url "register" %}"> ثبت نام </a></p>
+    </form>
+
 
 {% endblock content %}
