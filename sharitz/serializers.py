@@ -18,3 +18,9 @@ class wsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ws
         fields = '__all__'
+
+
+class edSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamDate
+        fields = '__all__'

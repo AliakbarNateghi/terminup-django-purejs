@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import courseSerializer, collegeSerializer, wsSerializer
-from .models import course, College, ws
+from .serializers import courseSerializer, collegeSerializer, wsSerializer, edSerializer
+from .models import course, College, ws, ExamDate
 
 
 @api_view(['GET'])
@@ -39,6 +39,13 @@ def collegeList(request):
 def wsList(request):
     wss = ws.objects.all().order_by('-id')
     serializer = wsSerializer(wss, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def edList(request):
+    eds = ExamDate.objects.all().order_by('-id')
+    serializer = edSerializer(eds, many=True)
     return Response(serializer.data)
 
 

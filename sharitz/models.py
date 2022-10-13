@@ -21,7 +21,7 @@ class ws(models.Model):  # WeeklySchedule
 class ExamDate(models.Model):
     date = models.DateField()
     start = models.FloatField(blank=True, null=True)
-    time = models.FloatField(blank=True, null=True)
+    # time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.date} : {self.start}'
