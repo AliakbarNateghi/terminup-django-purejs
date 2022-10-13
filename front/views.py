@@ -1,5 +1,3 @@
-from audioop import reverse
-
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, FormView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from sharitz.models import studentChoise, course, College
 from . import custom
 from .custom import WeeklyChoise, ExamChoise
@@ -48,18 +46,12 @@ class registerView(FormView):
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('collegeList')
+            return redirect('index')
         return super(registerView, self).get(*args, **kwargs)
 
 
 def idView(request):
     return render(request, 'Id.html')
-
-
-class courseList(LoginRequiredMixin, ListView):
-    model = course
-    context_object_name = 'courses'
-    template_name = 'list.html'
 
 
 class mainList(LoginRequiredMixin, ListView):

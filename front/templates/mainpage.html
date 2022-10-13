@@ -3,23 +3,21 @@
 
     <div class="main">
         <div class="sidenav" style="float: left;">
-            <select id="select-college" class="form-control" style="margin-top: 20px; margin-left: 15px">
+            <select id="select-college" class="form-control inputstl" style="margin-top: 65px; margin-left: 15px; width: 217px; height: 50px; font-size: 20px">
                 {% for college in colleges %}
                     <option class="college" id="{{ college }}" onclick="function1({{ college }})">{{ college }}</option>
                 {% endfor %}
             </select>
             <p id="units"></p>
-            <br/><br/><br/><br/><br/>
-
-            <div class="" style="">
-                <ul id="course-list" style="list-style-type: none"></ul>
+            <br/><br/>
+            <div class="" style="border: 1px solid white; margin-left: 15px;">
+                <select class="form-control inputstl" id="course-list" style="height: 550px" multiple></select>
             </div>
-
-            <div class="temporary-list" id="temporary-list"></div>
+            
+            <div class="temporary-list" id="temporary-list" style=""></div>
         </div>
 
-        <div class="hours" id="hours">
-        </div>
+        <div class="hours" id="hours"></div>
 
         <div class="main-table">
             <figure class="square thu">پنج شنبه</figure><figure class="square wed">چهارشنبه</figure><figure class="square tue">سه شنبه</figure><figure class="square mon">دوشنبه</figure><figure class="square sun">یک شنبه</figure><figure class="square sat">شنبه</figure>
@@ -39,6 +37,10 @@
                 document.getElementById("hours").innerHTML += `<p>${j}</p>`
             }
 
+            for(let i = 7; i < 21; i++){
+                document.getElementById("main-table").innerHTML += `<p style="line-height: 53px; text-align: center; color: rgba(0, 0, 0, 0.15)">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>`
+            }
+
             {# function1 : The function that shows the courses of clicked college #}
             function function1(rawCollege){
                 let url = "http://127.0.0.1:8000/api/course-list/";
@@ -55,7 +57,7 @@
                                 if(3 == data[i].college){
                                     item = data[i].title;
                                     {#console.log(data[i].id)#}
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "ریاضی"){
@@ -63,7 +65,7 @@
                             for(let i in data){
                                 if(6 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "cs"){
@@ -71,7 +73,7 @@
                             for(let i in data){
                                 if(8 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "عمران"){
@@ -79,7 +81,7 @@
                             for(let i in data){
                                 if(5 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "فیزیک"){
@@ -87,7 +89,7 @@
                             for(let i in data){
                                 if(2 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college ==  "ce"){
@@ -95,7 +97,7 @@
                             for(let i in data){
                                 if(7 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "مکانیک"){
@@ -103,7 +105,7 @@
                             for(let i in data){
                                 if(4 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "میمشیمی"){
@@ -111,7 +113,7 @@
                             for(let i in data){
                                 if(9 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "هوافضا"){
@@ -119,7 +121,7 @@
                             for(let i in data){
                                 if(1 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college == "نفت"){
@@ -127,7 +129,7 @@
                             for(let i in data){
                                 if(10 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<button class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</button><br>`
+                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else(console.log(college))
@@ -158,9 +160,9 @@
                                 let day1 = listOfWS[j].day1;
                                 let start = listOfWS[j].start;
                                 let time = listOfWS[j].time;
-                                let height = 75 * time
+                                let height = 63 * time
                                 let right1 = 271 * day1
-                                let top = (start - 7) * 66.62 + 29
+                                let top = (start - 7) * 63 + 58
                                 let day2;
                                 {#sumOfUnits.innerHTML += listOfCourses[i].unit#}
                                 if(listOfWS[j].day2 != null){
@@ -235,9 +237,9 @@
                                 let day1 = listOfWS[j].day1;
                                 let start = listOfWS[j].start;
                                 let time = listOfWS[j].time;
-                                let height = 75 * time
+                                let height = 63 * time
                                 let right1 = 271 * day1
-                                let top = (start - 7) * 66.6 + 29
+                                let top = (start - 7) * 63 + 58
                                 let day2;
                                 if(listOfWS[j].day2 != null){
                                     day2 = listOfWS[j].day2;
@@ -280,11 +282,11 @@
                         }
                         for(let k in listOfED){
                             if(edId == listOfED[k].id){
-                                document.getElementById("temporary-list").innerHTML  = `<ul style="border: 1px solid black; list-style-type: none">
-                                                                                            <li>واحد:${listOfCourses[i].unit}</li>
-                                                                                            <li>گروه:${listOfCourses[i].group}</li>
-                                                                                            <li>تاریخ امتحان:${listOfED[k].date}</li>
-                                                                                            <li>ساعت شروع:${listOfED[k].start}</li>
+                                document.getElementById("temporary-list").innerHTML  = `<select class="form-control inputstl" style="" multiple>
+                                                                                            <option disabled>واحد:${listOfCourses[i].unit}</option>
+                                                                                            <option disabled>گروه:${listOfCourses[i].group}</option>
+                                                                                            <option disabled>تاریخ امتحان:${listOfED[k].date}</option>
+                                                                                            <option disabled>ساعت شروع:${listOfED[k].start}</option>
                                                                                        <ul>`;
                             }
                         }
@@ -306,7 +308,7 @@
             function function5(courseId){
                 for(let i = 0; i < 1000; i++){
                     let element = document.getElementsByClassName(`${courseId}`)[i]
-                    element.style.color = "red"
+                    element.style.color = "#F26659"
                 }
              }
 
