@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, FormView
@@ -54,8 +55,16 @@ def aboutView(request):
     return render(request, 'about.html')
 
 
+def printView(request):
+    return render(request, 'print.html')
+
+
 def donateView(request):
     return render(request, 'donate.html')
+
+
+def test(request):
+    return render(request, 'test.html')
 
 
 class mainList(LoginRequiredMixin, ListView):
@@ -77,30 +86,62 @@ class CourseDetail(LoginRequiredMixin, DetailView):
 
 
 @login_required(redirect_field_name='index')
+@csrf_exempt
 def addCourse(request):
     if request.method == 'POST':
         student = request.user
-        title = request.POST.get('title')
-        code = int(request.POST.get('code'))
-        professor = request.POST.get('professor')
-        weeklySchedule = WeeklyChoise(student)
-        examDate = ExamChoise(student)
-        college = request.POST.get('college')
-        group = int(request.POST.get('group'))
-        unit = int(request.POST.get('unit'))
+        courseId = int(request.POST.get('id'))
+        courses = list(course.objects.all().values())
+        for Course in courses:
+            if Course["id"] == courseId:
+                student = student,
+                college = Course['college_id'],
+                ws = Course['ws_id'],
+                examDate = Course['examDate_id'],
+                title = Course['title'],
+                professor = Course['professor'],
+                group = Course['group'],
+                unit = Course['unit'],
+                code = Course['code'],
+                capacity = Course['capacity'],
+                requirement = Course['requirement'],
+                synthesis = Course['synthesis'],
+                ps = Course['ps']
+                newCourse = studentChoise(
+                    student=student,
+                    college=college,
+                    ws=ws,
+                    examDate=examDate,
+                    title=title,
+                    professor=professor,
+                    group=group,
+                    unit=unit,
+                    code=code,
+                    capacity=capacity,
+                    requirement=requirement,
+                    synthesis=synthesis,
+                    ps=ps)
+                newCourse.save()
 
-        newCourse = studentChoise(
-            student=student,
-            title=title,
-            code=code,
-            professor=professor,
-            weeklySchedule=weeklySchedule,
-            examDate=examDate,
-            college=college,
-            group=group,
-            unit=unit)
+                context = {
+                    'title': title,
+                    'college': college,
+                    'ws': ws,
+                    'examDate': examDate,
+                    'professor': professor,
+                    'group': group,
+                    'unit': unit,
+                    'code': code,
+                    'capacity': capacity,
+                    'requirement': requirement,
+                    'synthesis': synthesis,
+                    'ps': ps,
+                }
+                return render(request, 'print.html', context=context)
+    else:
+        pass
 
-        newCourse.save()
+    return HttpResponseRedirect(reverse_lazy('collegeList'))
 
 
 class CourseDelete(LoginRequiredMixin, DeleteView):

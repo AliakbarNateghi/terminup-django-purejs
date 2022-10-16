@@ -5,23 +5,21 @@
 
         <ul class="top-nav" id="top-nav" style="margin-top: 5px">
             <li><a href="{% url "collegeList" %}" class="logo square"><button class="btn btn-primary" style="background-color: #4285F4">LOGO</button></a></li>
-            <li><a href="#" class="print"><button class="btn btn-danger" style="background-color: #DB4437">چاپ برنامه</button></a></li>
+            <li><a href="{% url "print" %}" class="print"><button class="btn btn-danger" style="background-color: #DB4437">چاپ برنامه</button></a></li>
             <li><a href="{% url "donate" %}" class="donate"><button class="btn btn-warning" style="background-color: #F4B400; color: white">حمایت مالی</button></a></li>
-{#            <li><a href="{% url "addCourse" %}" class="save"><button class="btn btn-primary" style="background-color: #4285F4">ذخیره برنامه</button></a></li>#}
             <li>
-                <form id="form" action="{% url "addCourse" %}" method="post">
-                    <input type="submit" class="btn btn-primary" value="ذخیره برنامه" style="margin-bottom: 920px; margin-left: 230px">
+                <form action="{% url "addCourse" %}" method="post" style="width: 50px">
+                    {% csrf_token %}
+                    <div id="form">
+
+                    </div>
+                    <input type="submit" class="btn btn-primary save" value="ذخیره برنامه" style="">
                 </form>
             </li>
             <li><a href="{% url "about" %}" class="about"><button class="btn btn-success" style="background-color: #0F9D58">درباره ما</button></a></li>
             <li><a href="{% url "logout" %}" class="logout"><button class="btn btn-danger" style="background-color: #DB4437">خروج</button></a></li>
         </ul>
 
-{#        <div>#}
-{#            <form id="form" action="{% url "addCourse" %}" method="post">#}
-{#                <li><input type="submit" class="btn btn-danger" value="ذخیره برنامه" style="background-color: #DB4437"></li>#}
-{#            </form>#}
-{#        </div>#}
 
         <div class="sidenav" style="float: left;">
             <select id="select-college" class="form-control inputstl" style="margin-top: 30px; margin-left: 15px; width: 217px; height: 50px; font-size: 20px">
@@ -188,7 +186,7 @@
                                     day2 = listOfWS[j].day2;
                                     let right2 = 271 * day2
                                     let form = document.getElementById("form");
-                                    form.innerHTML += `<input type="hidden" name="id" value="${courseId}">`
+                                    form.innerHTML = `<input type="hidden" name="id" value="${courseId}">`
                                     mainTable.innerHTML +=
                                         `<div class="${courseId}">
                                             <div class="course square" style="height: ${height}px;
