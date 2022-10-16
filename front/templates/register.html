@@ -4,7 +4,7 @@
         <form action="{% url "register" %}" method="POST">
             {% csrf_token %}
 
-            <h1 style="font-family: 'B Nazanin'; font-size: 55px; float: right"> ثبت نام </h1>
+            <h1 style="font-family: 'B Nazanin'; font-size: 45px; float: right"> ثبت نام </h1>
             <br><br><br><br><br>
             <div class="form-group">
                 <label for="username"> نام کاربری </label>
@@ -26,7 +26,7 @@
             {{ form.password2 }}
             </div>
             <br>
-            <input type="submit" value=" ثبت نام " class="btn btn-primary bg-primary" style="float: right">
+            <input type="submit" value=" ثبت نام " class="btn btn-primary bg-primary" style="float: right; font-size: 16px">
             <br><br>
             <p style="float: right; font-family: 'B Nazanin'; font-size: 20px"> آیا حساب کاربری دارید؟ <a href="{% url "login" %}"> ورود </a></p>
         </form>

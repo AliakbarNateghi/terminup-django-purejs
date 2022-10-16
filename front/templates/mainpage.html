@@ -2,18 +2,25 @@
 {% block content %}
 
     <div class="main">
+
+        <ul class="top-nav" id="top-nav" style="margin-top: 5px">
+            <li><a href="{% url "collegeList" %}" class="logo square"><button class="btn btn-primary" style="background-color: #4285F4">LOGO</button></a></li>
+            <li><a href="#" class="print"><button class="btn btn-danger" style="background-color: #DB4437">چاپ برنامه</button></a></li>
+            <li><a href="{% url "donate" %}" class="donate"><button class="btn btn-warning" style="background-color: #F4B400; color: white">کمک مالی</button></a></li>
+            <li><a href="#" class=""><button class="btn btn-primary" style="background-color: #4285F4">#</button></a></li>
+            <li><a href="{% url "about" %}" class="about"><button class="btn btn-success" style="background-color: #0F9D58">درباره ما</button></a></li>
+            <li><a href="{% url "logout" %}" class="logout"><button class="btn btn-danger" style="background-color: #DB4437">خروج</button></a></li>
+        </ul>
         <div class="sidenav" style="float: left;">
-            <select id="select-college" class="form-control inputstl" style="margin-top: 65px; margin-left: 15px; width: 217px; height: 50px; font-size: 20px">
+            <select id="select-college" class="form-control inputstl" style="margin-top: 30px; margin-left: 15px; width: 217px; height: 50px; font-size: 20px">
                 {% for college in colleges %}
                     <option class="college" id="{{ college }}" onclick="function1({{ college }})">{{ college }}</option>
                 {% endfor %}
             </select>
             <p id="units"></p>
-            <br/><br/>
             <div class="" style="border: 1px solid white; margin-left: 15px;">
                 <select class="form-control inputstl" id="course-list" style="height: 550px" multiple></select>
             </div>
-            
             <div class="temporary-list" id="temporary-list" style=""></div>
         </div>
 
@@ -38,7 +45,7 @@
             }
 
             for(let i = 7; i < 21; i++){
-                document.getElementById("main-table").innerHTML += `<p style="line-height: 53px; text-align: center; color: rgba(0, 0, 0, 0.15)">--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>`
+                document.getElementById("main-table").innerHTML += `<p style="line-height: 53px; text-align: center; color: rgba(0, 0, 0, 0.15)">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>`
             }
 
             {# function1 : The function that shows the courses of clicked college #}
@@ -162,7 +169,7 @@
                                 let time = listOfWS[j].time;
                                 let height = 63 * time
                                 let right1 = 271 * day1
-                                let top = (start - 7) * 63 + 58
+                                let top = (start - 7) * 63 + 67
                                 let day2;
                                 {#sumOfUnits.innerHTML += listOfCourses[i].unit#}
                                 if(listOfWS[j].day2 != null){
@@ -239,7 +246,7 @@
                                 let time = listOfWS[j].time;
                                 let height = 63 * time
                                 let right1 = 271 * day1
-                                let top = (start - 7) * 63 + 58
+                                let top = (start - 7) * 63 + 67
                                 let day2;
                                 if(listOfWS[j].day2 != null){
                                     day2 = listOfWS[j].day2;
@@ -282,16 +289,20 @@
                         }
                         for(let k in listOfED){
                             if(edId == listOfED[k].id){
-                                document.getElementById("temporary-list").innerHTML  = `<select class="form-control inputstl" style="" multiple>
+                                document.getElementById("temporary-list").innerHTML  = `<select class="form-control inputstl" style="height: 230px" multiple>
                                                                                             <option disabled>واحد:${listOfCourses[i].unit}</option>
                                                                                             <option disabled>گروه:${listOfCourses[i].group}</option>
+                                                                                            <option disabled>ظرفیت:${listOfCourses[i].capacity}</option>
+                                                                                            <option disabled>پیشنیاز:${listOfCourses[i].requirement}</option>
+                                                                                            <option disabled>همنیاز:${listOfCourses[i].synthesis}</option>
                                                                                             <option disabled>تاریخ امتحان:${listOfED[k].date}</option>
                                                                                             <option disabled>ساعت شروع:${listOfED[k].start}</option>
+                                                                                            <option disabled>پینوشت:${listOfCourses[i].ps}</option>
                                                                                        <ul>`;
                             }
                         }
                     }else if(courseId == 0){
-                        mainTable.innerHTML = ''
+                        temporaryTable.innerHTML = ''
                     }
 
                 }

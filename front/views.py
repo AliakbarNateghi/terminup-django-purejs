@@ -50,8 +50,12 @@ class registerView(FormView):
         return super(registerView, self).get(*args, **kwargs)
 
 
-def idView(request):
-    return render(request, 'Id.html')
+def aboutView(request):
+    return render(request, 'about.html')
+
+
+def donateView(request):
+    return render(request, 'donate.html')
 
 
 class mainList(LoginRequiredMixin, ListView):
