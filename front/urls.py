@@ -2,7 +2,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from . import views
-from .views import mainList, loginView, aboutView, collegeList, registerView, donateView
+from .views import mainList, loginView, aboutView, collegeList, registerView, donateView, addCourse
 
 urlpatterns = [
     # path('', mainList.as_view(), name='mainList'),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('register/', registerView.as_view(), name='register'),
     path('about/', aboutView, name='about'),
     path('donate/', donateView, name='donate'),
+    path('addcourse/', addCourse, name='addCourse'),
 ]

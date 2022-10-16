@@ -77,7 +77,7 @@ class CourseDetail(LoginRequiredMixin, DetailView):
 
 
 @login_required(redirect_field_name='index')
-def CourseAdd(request):
+def addCourse(request):
     if request.method == 'POST':
         student = request.user
         title = request.POST.get('title')
