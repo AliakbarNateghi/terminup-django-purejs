@@ -19,9 +19,13 @@ class ws(models.Model):  # WeeklySchedule
 
 
 class ExamDate(models.Model):
-    date = models.DateField()
+    date = models.DateField(blank=True, null=True)
     start = models.FloatField(blank=True, null=True)
+
     # time = models.FloatField(blank=True, null=True)
+
+    def Null(self):
+        if self.date and self.start is None: return 'نامشخص'
 
     def __str__(self):
         return f'{self.date} : {self.start}'
@@ -57,6 +61,10 @@ class course(models.Model):
     group = models.IntegerField(blank=True, null=True)
     unit = models.IntegerField(blank=True, null=True)
     code = models.IntegerField(blank=True, null=True)
+    capacity = models.IntegerField(blank=True, null=True)
+    requirement = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
+    synthesis = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
+    ps = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
 
     def __str__(self):
         return f'{self.title}'
@@ -78,7 +86,8 @@ class studentChoise(models.Model):
                                  on_delete=models.CASCADE,
                                  related_name='frontExam')
 
-    college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
+    college = models.ForeignKey(College, on_delete=models.CASCADE,
+                                null=True,
                                 blank=True)
 
     group = models.IntegerField(blank=True, null=True)
