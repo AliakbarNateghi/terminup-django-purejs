@@ -90,56 +90,11 @@ class CourseDetail(LoginRequiredMixin, DetailView):
 def addCourse(request):
     if request.method == 'POST':
         student = request.user
-        courseId = int(request.POST.get('id'))
-        courses = list(course.objects.all().values())
-        for Course in courses:
-            if Course["id"] == courseId:
-                student = student,
-                college = Course['college_id'],
-                ws = Course['ws_id'],
-                examDate = Course['examDate_id'],
-                title = Course['title'],
-                professor = Course['professor'],
-                group = Course['group'],
-                unit = Course['unit'],
-                code = Course['code'],
-                capacity = Course['capacity'],
-                requirement = Course['requirement'],
-                synthesis = Course['synthesis'],
-                ps = Course['ps']
-                newCourse = studentChoise(
-                    student=student,
-                    college=college,
-                    ws=ws,
-                    examDate=examDate,
-                    title=title,
-                    professor=professor,
-                    group=group,
-                    unit=unit,
-                    code=code,
-                    capacity=capacity,
-                    requirement=requirement,
-                    synthesis=synthesis,
-                    ps=ps)
+        for a in range(1000):
+            course_id = request.POST.get(str(a))
+            if course_id != None:
+                newCourse = studentChoise(student=student, course_id=course_id)
                 newCourse.save()
-
-                context = {
-                    'title': title,
-                    'college': college,
-                    'ws': ws,
-                    'examDate': examDate,
-                    'professor': professor,
-                    'group': group,
-                    'unit': unit,
-                    'code': code,
-                    'capacity': capacity,
-                    'requirement': requirement,
-                    'synthesis': synthesis,
-                    'ps': ps,
-                }
-                return render(request, 'print.html', context=context)
-    else:
-        pass
 
     return HttpResponseRedirect(reverse_lazy('collegeList'))
 

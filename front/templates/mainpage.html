@@ -8,11 +8,8 @@
             <li><a href="{% url "print" %}" class="print"><button class="btn btn-danger" style="background-color: #DB4437">چاپ برنامه</button></a></li>
             <li><a href="{% url "donate" %}" class="donate"><button class="btn btn-warning" style="background-color: #F4B400; color: white">حمایت مالی</button></a></li>
             <li>
-                <form action="{% url "addCourse" %}" method="post" style="width: 50px">
+                <form id="save-program" action="{% url "addCourse" %}" method="post" style="width: 50px">
                     {% csrf_token %}
-                    <div id="form">
-
-                    </div>
                     <input type="submit" class="btn btn-primary save" value="ذخیره برنامه" style="">
                 </form>
             </li>
@@ -46,9 +43,31 @@
             </div>
         </div>
 
+
+        <div id="dump">
+
+        </div>
+
     </div>
 
         <script type="text/javascript">
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+            return cookieValue;
+            }
+            let csrftoken = getCookie('csrftoken');
 
             for(let j = 7; j < 21; j++){
                 document.getElementById("hours").innerHTML += `<p>${j}</p>`
@@ -106,7 +125,7 @@
                             for(let i in data){
                                 if(2 == data[i].college){
                                     item = data[i].title;
-                                    courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
+                                    courseList.innerHTML += `<option value="${data[i].id}" class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                                 }
                             }
                         }else if(college ==  "ce"){
@@ -156,15 +175,19 @@
 
             {# function2 : The function that put the clicked course on the main table #}
             function function2(courseId){
+
                 Promise.all([
                     fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
                     fetch("http://127.0.0.1:8000/api/ws-list/").then(resp => resp.json()),
                     fetch("http://127.0.0.1:8000/api/ed-list/").then(resp => resp.json()),
+                    fetch("http://127.0.0.1:8000/api/course-create/").then(resp => resp.json()),
                 ]).then(function(data){
+                    let form = document.getElementById("save-program");
                     let sumOfUnits = document.getElementById('units');
                     let listOfCourses = data[0];
                     let listOfWS = data[1];
                     let listOfED = data[2];
+                    let create = data[4];
                     let mainTable = document.getElementById("main-table")
                     let wsId;
                     let edId;
@@ -174,6 +197,19 @@
                         edId = listOfCourses[i].examDate;
                         for(let j in listOfWS){
                             if(wsId == listOfWS[j].id){
+                                let url = `http://127.0.0.1:8000/api/course-create/`
+
+                                fetch(url, {
+                                        method: 'POST',
+                                        headers:
+                                            {
+                                                'Content-type': 'application/json',
+                                                'X_CSRFToken': csrftoken,
+                                            }
+                                    }).then(response => {
+                                    function1()
+                                    })
+
                                 let day1 = listOfWS[j].day1;
                                 let start = listOfWS[j].start;
                                 let time = listOfWS[j].time;
@@ -185,8 +221,7 @@
                                 if(listOfWS[j].day2 != null){
                                     day2 = listOfWS[j].day2;
                                     let right2 = 271 * day2
-                                    let form = document.getElementById("form");
-                                    form.innerHTML = `<input type="hidden" name="id" value="${courseId}">`
+                                    form.innerHTML += `<input type="hidden" id="${courseId}" name="${courseId}" value="${courseId}">`
                                     mainTable.innerHTML +=
                                         `<div class="${courseId}">
                                             <div class="course square" style="height: ${height}px;
@@ -340,7 +375,12 @@
                 for(let i = 0; i < 1000; i++){
                     document.getElementsByClassName(`${courseId}`)[i].innerHTML = "";
                     {#document.getElementById('units').innerHTML -= unit;#}
+                    {#form.innerHTML -= `<input type="hidden" name="${courseId}" value="${courseId}">`#}
                 }
+
+                let dump = document.getElementById('dump');
+                dump.innerHTML += document.getElementById(`${courseId}`)
+                dump.innerHTML = "";
             }
 
         </script>
