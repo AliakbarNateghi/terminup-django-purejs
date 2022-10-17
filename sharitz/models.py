@@ -42,9 +42,6 @@ class College(models.Model):
 
 
 class course(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
-                                blank=True)
-
     college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
@@ -74,26 +71,7 @@ class studentChoise(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
-    college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
-                                blank=True)
-
-    ws = models.ForeignKey(ws, null=True,
-                           on_delete=models.CASCADE,
-                           related_name='frontWeek')
-
-    examDate = models.ForeignKey(ExamDate, null=True,
-                                 on_delete=models.CASCADE,
-                                 related_name='frontExam')
-
-    title = models.CharField(blank=True, null=True, max_length=256)
-    professor = models.CharField(blank=True, null=True, max_length=256)
-    group = models.IntegerField(blank=True, null=True)
-    unit = models.IntegerField(blank=True, null=True)
-    code = models.IntegerField(blank=True, null=True)
-    capacity = models.IntegerField(blank=True, null=True)
-    requirement = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
-    synthesis = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
-    ps = models.CharField(blank=True, null=False, max_length=256, default='ندارد')
+    course = models.ForeignKey(course, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.title} picked by {self.student}'
+        return f'{self.course_id} picked by {self.student}'

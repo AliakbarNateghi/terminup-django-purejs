@@ -8,6 +8,12 @@ class courseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class choiseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = studentChoise
+        fields = '__all__'
+
+
 class collegeSerializer(serializers.ModelSerializer):
     class Meta:
         model = College

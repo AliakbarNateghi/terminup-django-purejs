@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import courseSerializer, collegeSerializer, wsSerializer, edSerializer
-from .models import course, College, ws, ExamDate
+from .serializers import courseSerializer, collegeSerializer, wsSerializer, edSerializer, choiseSerializer
+from .models import course, College, ws, ExamDate, studentChoise
 
 
 @api_view(['GET'])
@@ -13,9 +13,10 @@ def apiOverview(request):
         'college': '/college-list',
         'ws': '/ws-list',
         'Detail View': '/course-detail/<str:pk>/',
-        'Create': '/course-create/',
-        'Update': '/course-update/<str:pk>/',
-        'Delete': '/course-delete/<str:pk>/',
+        'courseCreate': '/course-create/',
+        'courseUpdate': '/course-update/<str:pk>/',
+        'courseDelete': '/course-delete/<str:pk>/',
+        'studentChoise': '/student-choise/<str:pk>/',
     }
 
     return Response(api_urls)
@@ -25,6 +26,13 @@ def apiOverview(request):
 def courseList(request):
     courses = course.objects.all().order_by('-id')
     serializer = courseSerializer(courses, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def StudentChoise(request, pk):
+    choises = studentChoise.objects.get(student_id=pk)
+    serializer = choiseSerializer(choises, many=False)
     return Response(serializer.data)
 
 
@@ -58,7 +66,7 @@ def courseDetail(request, pk):
 
 @api_view(['POST'])
 def courseCreate(request):
-    serializer = courseSerializer(data=request.data)
+    serializer = choiseSerializer(data=request.data)
 
     if serializer.is_valid():
         serializer.save()
@@ -79,8 +87,8 @@ def courseUpdate(request, pk):
 
 @api_view(['DELETE'])
 def courseDelete(request, pk):
-    courses = course.objects.get(id=pk)
-    courses.delete()
+    choises = studentChoise.objects.get(id=pk)
+    choises.delete()
 
     return Response('Deleted')
 
