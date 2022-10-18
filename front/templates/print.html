@@ -1,4 +1,41 @@
 {% extends 'main.html' %}
 {% block content %}
+    <div class="container form-group form-control" style="margin-top: 50px; height: 600px">
+{#        <table class="styled-table" style="text-align: center; float:right; font-size: 18px">#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>ردیف</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for name in title %}#}
+{#                    <tr class="active-row">#}
+{#                        <td>{{ name }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{##}
+{#                <tr>#}
+{#                    <td>8</td>#}
+{#                </tr>#}
+{##}
+{#                <tr>#}
+{#                    <td>7</td>#}
+{#                </tr>#}
+{#            </tbody>#}
+{#        </table>#}
+
+    {% for number in fuckinglist %}
+        <p>{{ number.title }}</p>
+    {% endfor %}
+    </div>
 
 {% endblock content %}
+
+{#                    <th>توضیحات</th>#}
+{#                    <th>ساعت شروع امتحان</th>#}
+{#                    <th>تاریخ امتحان</th>#}
+{#                    <th>گروه</th>#}
+{#                    <th>واحد</th>#}
+{#                    <th>استاد</th>#}
+{#                    <th>کد درس</th>#}
+{#                    <th>نام درس</th>#}

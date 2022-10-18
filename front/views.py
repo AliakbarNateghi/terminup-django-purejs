@@ -8,7 +8,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy, reverse
-from sharitz.models import studentChoise, course, College
+from sharitz.models import studentChoise, course, College, ExamDate
 from . import custom
 from .custom import WeeklyChoise, ExamChoise
 from .forms import CreateUserForm
@@ -55,10 +55,6 @@ def aboutView(request):
     return render(request, 'about.html')
 
 
-def printView(request):
-    return render(request, 'print.html')
-
-
 def donateView(request):
     return render(request, 'donate.html')
 
@@ -96,8 +92,61 @@ def addCourse(request):
                 newCourse = studentChoise(student=student, course_id=course_id)
                 newCourse.save()
 
-    return HttpResponseRedirect(reverse_lazy('collegeList'))
+    return render(request, 'print.html')
 
+
+@login_required(redirect_field_name='index')
+def printView(request):
+    fuckingList = {}
+    j = 0
+    course_id = list(course.objects.all().values('id'))
+    listOfED = list(ExamDate.objects.all().values('id'))
+    studentChoise_id = list(studentChoise.objects.all().values('course_id'))
+
+    for i in course_id:
+        for j in studentChoise_id:
+            if i == j:
+                title = i['title']
+
+    # context = {
+    #     'title': title,
+    # }
+
+    # for c in listOfChoise:
+    #     for a in listOfCourses:
+    #         if a["examDate_id"] == c["id"]:
+    #             courseId = a["id"]
+    #             title = a["title"]
+    #             code = a["code"]
+    #             group = a["group"]
+    #             unit = a["unit"]
+    #             professor = a["professor"]
+    #             ps = a["ps"]
+    #             examDate_id = a["examDate_id"]
+    #
+    #             for b in listOfED:
+    #                 if b["id"] == examDate_id:
+    #                     testDate = b["date"]
+    #                     testStart = b["start"]
+    #                     j += 1
+    #                     fuckingList += {
+    #                         'title': title,
+    #                         'code': code,
+    #                         'group': group,
+    #                         'unit': unit,
+    #                         'professor': professor,
+    #                         'ps': ps,
+    #                         'testDate': testDate,
+    #                         'testStart': testStart,
+    #                         'j': j
+    #                     }
+                        # return render(request, 'print.html', context)
+
+    # for d in fuckingList:
+    #     context = d
+
+    return render(request, 'print.html')
+    # return HttpResponseRedirect(reverse('print'))
 
 class CourseDelete(LoginRequiredMixin, DeleteView):
     model = studentChoise
