@@ -68,10 +68,10 @@ class course(models.Model):
 
 
 class studentChoise(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
     course = models.ForeignKey(course, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return f'{self.course_id} picked by {self.student}'
+        return f'{self.course_id} : {self.course} picked by {self.user}'
