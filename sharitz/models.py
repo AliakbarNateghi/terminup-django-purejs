@@ -2,10 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# class Student(models.Model):
-#     student = models.ForeignKey(User, null=True,
-#                                 on_delete=models.CASCADE,
-#                                 related_name='students')
+class Student(models.Model):
+    student = models.ForeignKey(User, null=True,
+                                on_delete=models.CASCADE,
+                                related_name='students')
 
 
 class ws(models.Model):  # WeeklySchedule
@@ -21,11 +21,6 @@ class ws(models.Model):  # WeeklySchedule
 class ExamDate(models.Model):
     date = models.DateField(blank=True, null=True)
     start = models.FloatField(blank=True, null=True)
-
-    # time = models.FloatField(blank=True, null=True)
-
-    def Null(self):
-        if self.date and self.start is None: return 'نامشخص'
 
     def __str__(self):
         return f'{self.date} : {self.start}'
@@ -68,10 +63,17 @@ class course(models.Model):
 
 
 class studentChoise(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
-    course = models.ForeignKey(course, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(blank=True, null=True, max_length=256)
+    professor = models.CharField(blank=True, null=True, max_length=256)
+    group = models.IntegerField(blank=True, null=True)
+    unit = models.IntegerField(blank=True, null=True)
+    code = models.IntegerField(blank=True, null=True)
+    ps = models.CharField(blank=True, null=True, max_length=256, default='ندارد')
+    examDate = models.DateField(blank=True, null=True)
+    examStart = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.course_id} : {self.course} picked by {self.user}'
+        return f'{self.code} : {self.title} picked by {self.student}'
