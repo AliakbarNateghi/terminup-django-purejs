@@ -30,7 +30,7 @@ def loginView(request):
         login(request, user)
         return HttpResponseRedirect(reverse('index'))
     else:
-        return render(request, 'login.html', {'message': ' لطفا دوباره متحان کنید '})
+        return render(request, 'login.html', {'message': ' لطفا دوباره امتحان کنید '})
 
 
 class registerView(FormView):
@@ -75,10 +75,7 @@ class collegeList(LoginRequiredMixin, ListView):
     template_name = 'mainpage.html'
 
 
-class CourseDetail(LoginRequiredMixin, DetailView):
-    model = course
-    context_object_name = 'course'
-    template_name = 'course.html'
+listOfUsed = []
 
 
 @login_required(redirect_field_name='index')
@@ -87,68 +84,47 @@ def addCourse(request):
     if request.method == 'POST':
         student = request.user
         for a in range(1000):
-            course_id = request.POST.get(str(a))
-            if course_id != None:
-                newCourse = studentChoise(student=student, course_id=course_id)
-                newCourse.save()
+            choiseId = request.POST.get('id-' + str(a))
+            title = request.POST.get('title-' + str(a))
+            code = request.POST.get('code-' + str(a))
+            professor = request.POST.get('professor-' + str(a))
+            group = request.POST.get('group-' + str(a))
+            unit = request.POST.get('unit-' + str(a))
+            ps = request.POST.get('ps-' + str(a))
+            examDate = request.POST.get('examDate-' + str(a))
+            examStart = request.POST.get('examStart-' + str(a))
 
-    return render(request, 'print.html')
+            if choiseId is not None:
+                listOfUsed.append(choiseId)
+                newChoise = studentChoise(student=student,
+                                          title=title,
+                                          code=code,
+                                          professor=professor,
+                                          group=group,
+                                          unit=unit,
+                                          ps=ps,
+                                          examDate=examDate,
+                                          examStart=examStart)
+                newChoise.save()
+
+    return HttpResponseRedirect(reverse('collegeList'))
+
+
+class printView(LoginRequiredMixin, ListView):
+    model = studentChoise
+    context_object_name = 'choises'
+    template_name = 'print.html'
 
 
 @login_required(redirect_field_name='index')
-def printView(request):
-    fuckingList = {}
-    j = 0
-    course_id = list(course.objects.all().values('id'))
-    listOfED = list(ExamDate.objects.all().values('id'))
-    studentChoise_id = list(studentChoise.objects.all().values('course_id'))
+def deleteView(request):
+    if request.method == 'POST':
+        choiseId = request.POST.get('id')
+        deleteItem = studentChoise.objects.get(id=choiseId)
+        deleteItem.delete()
 
-    for i in course_id:
-        for j in studentChoise_id:
-            if i == j:
-                title = i['title']
+        for i in listOfUsed:
+            if i == choiseId:
+                listOfUsed.remove(i)
 
-    # context = {
-    #     'title': title,
-    # }
-
-    # for c in listOfChoise:
-    #     for a in listOfCourses:
-    #         if a["examDate_id"] == c["id"]:
-    #             courseId = a["id"]
-    #             title = a["title"]
-    #             code = a["code"]
-    #             group = a["group"]
-    #             unit = a["unit"]
-    #             professor = a["professor"]
-    #             ps = a["ps"]
-    #             examDate_id = a["examDate_id"]
-    #
-    #             for b in listOfED:
-    #                 if b["id"] == examDate_id:
-    #                     testDate = b["date"]
-    #                     testStart = b["start"]
-    #                     j += 1
-    #                     fuckingList += {
-    #                         'title': title,
-    #                         'code': code,
-    #                         'group': group,
-    #                         'unit': unit,
-    #                         'professor': professor,
-    #                         'ps': ps,
-    #                         'testDate': testDate,
-    #                         'testStart': testStart,
-    #                         'j': j
-    #                     }
-                        # return render(request, 'print.html', context)
-
-    # for d in fuckingList:
-    #     context = d
-
-    return render(request, 'print.html')
-    # return HttpResponseRedirect(reverse('print'))
-
-class CourseDelete(LoginRequiredMixin, DeleteView):
-    model = studentChoise
-    context_object_name = 'course'
-    success_url = reverse_lazy('courses')
+    return HttpResponseRedirect(reverse('print'))

@@ -1,41 +1,42 @@
 {% extends 'main.html' %}
 {% block content %}
-    <div class="container form-group form-control" style="margin-top: 50px; height: 600px">
-{#        <table class="styled-table" style="text-align: center; float:right; font-size: 18px">#}
-{#            <thead>#}
-{#                <tr>#}
-{#                    <th>ردیف</th>#}
-{#                </tr>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#                {% for name in title %}#}
-{#                    <tr class="active-row">#}
-{#                        <td>{{ name }}</td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{##}
-{#                <tr>#}
-{#                    <td>8</td>#}
-{#                </tr>#}
-{##}
-{#                <tr>#}
-{#                    <td>7</td>#}
-{#                </tr>#}
-{#            </tbody>#}
-{#        </table>#}
 
-    {% for number in fuckinglist %}
-        <p>{{ number.title }}</p>
-    {% endfor %}
+    <div class="container form-group form-control" style="margin-top: 30px; height: 900px; width: 900px">
+        <table class="styled-table" style="text-align: center; float:right; font-size: 18px;">
+            <thead>
+                <tr style="text-align: center">
+                    <th>توضیحات</th>
+                    <th>ساعت شروع امتحان</th>
+                    <th>تاریخ امتحان</th>
+                    <th>گروه</th>
+                    <th>واحد</th>
+                    <th>استاد</th>
+                    <th>کد درس</th>
+                    <th>نام درس</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for choise in choises %}
+                    <tr class="active-row" style="text-align: center">
+                        <form action="{% url 'delete' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ choise.id }}">
+                            <td><input type="hidden" name="ps" value="{{ choise.ps }}">{{ choise.ps }}</td>
+                            <td><input type="hidden" name="examStart" value="{{ choise.examStart }}">{{ choise.examStart }}</td>
+                            <td><input type="hidden" name="examDate" value="{{ choise.examDate }}">{{ choise.examDate }}</td>
+                            <td><input type="hidden" name="group" value="{{ choise.group }}">{{ choise.group }}</td>
+                            <td><input type="hidden" name="unit" value="{{ choise.unit }}">{{ choise.unit }}</td>
+                            <td><input type="hidden" name="professor" value="{{ choise.professor }}">{{ choise.professor }}</td>
+                            <td><input type="hidden" name="code" value="{{ choise.code }}">{{ choise.code }}</td>
+                            <td><input type="hidden" name="title" value="{{ choise.title }}">{{ choise.title }}</td>
+                            <td><input type="submit" value="x" class="btn btn-danger" style="width: 35px"></td>
+                        </form>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 {% endblock content %}
 
-{#                    <th>توضیحات</th>#}
-{#                    <th>ساعت شروع امتحان</th>#}
-{#                    <th>تاریخ امتحان</th>#}
-{#                    <th>گروه</th>#}
-{#                    <th>واحد</th>#}
-{#                    <th>استاد</th>#}
-{#                    <th>کد درس</th>#}
-{#                    <th>نام درس</th>#}
