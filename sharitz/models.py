@@ -65,7 +65,7 @@ class course(models.Model):
 class studentChoise(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
                                 blank=True)
-
+    courseId = models.IntegerField(blank=True, null=True)
     title = models.CharField(blank=True, null=True, max_length=256)
     professor = models.CharField(blank=True, null=True, max_length=256)
     group = models.IntegerField(blank=True, null=True)

@@ -32,7 +32,7 @@ def courseList(request):
 @api_view(['GET'])
 def StudentChoise(request):
     choises = studentChoise.objects.all().order_by('-id')
-    serializer = choiseSerializer(choises, many=False)
+    serializer = choiseSerializer(choises, many=True)
     return Response(serializer.data)
 
 
