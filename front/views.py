@@ -84,7 +84,7 @@ def addCourse(request):
     if request.method == 'POST':
         student = request.user
         for a in range(1000):
-            choiseId = request.POST.get('id-' + str(a))
+            courseId = request.POST.get('courseId-' + str(a))
             title = request.POST.get('title-' + str(a))
             code = request.POST.get('code-' + str(a))
             professor = request.POST.get('professor-' + str(a))
@@ -94,18 +94,20 @@ def addCourse(request):
             examDate = request.POST.get('examDate-' + str(a))
             examStart = request.POST.get('examStart-' + str(a))
 
-            if choiseId is not None:
-                listOfUsed.append(choiseId)
-                newChoise = studentChoise(student=student,
-                                          title=title,
-                                          code=code,
-                                          professor=professor,
-                                          group=group,
-                                          unit=unit,
-                                          ps=ps,
-                                          examDate=examDate,
-                                          examStart=examStart)
-                newChoise.save()
+            if courseId is not None:
+                if courseId not in listOfUsed:
+                    listOfUsed.append(courseId)
+                    newChoise = studentChoise(courseId=courseId,
+                                              student=student,
+                                              title=title,
+                                              code=code,
+                                              professor=professor,
+                                              group=group,
+                                              unit=unit,
+                                              ps=ps,
+                                              examDate=examDate,
+                                              examStart=examStart)
+                    newChoise.save()
 
     return HttpResponseRedirect(reverse('collegeList'))
 
@@ -120,11 +122,13 @@ class printView(LoginRequiredMixin, ListView):
 def deleteView(request):
     if request.method == 'POST':
         choiseId = request.POST.get('id')
-        deleteItem = studentChoise.objects.get(id=choiseId)
-        deleteItem.delete()
+        courseId = request.POST.get('courseId')
 
         for i in listOfUsed:
-            if i == choiseId:
+            if i == courseId:
                 listOfUsed.remove(i)
+
+        deleteItem = studentChoise.objects.get(id=choiseId)
+        deleteItem.delete()
 
     return HttpResponseRedirect(reverse('print'))

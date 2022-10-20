@@ -21,6 +21,7 @@
                     <tr class="active-row" style="text-align: center">
                         <form action="{% url 'delete' %}" method="post">
                             {% csrf_token %}
+                            <input type="hidden" name="courseId" value="{{ choise.courseId }}">
                             <input type="hidden" name="id" value="{{ choise.id }}">
                             <td><input type="hidden" name="ps" value="{{ choise.ps }}">{{ choise.ps }}</td>
                             <td><input type="hidden" name="examStart" value="{{ choise.examStart }}">{{ choise.examStart }}</td>
@@ -30,7 +31,7 @@
                             <td><input type="hidden" name="professor" value="{{ choise.professor }}">{{ choise.professor }}</td>
                             <td><input type="hidden" name="code" value="{{ choise.code }}">{{ choise.code }}</td>
                             <td><input type="hidden" name="title" value="{{ choise.title }}">{{ choise.title }}</td>
-                            <td><input type="submit" value="x" class="btn btn-danger" style="width: 35px"></td>
+                            <td><input type="submit" value="&times;" class="btn btn-danger" style="width: 35px"></td>
                         </form>
                     </tr>
                 {% endfor %}

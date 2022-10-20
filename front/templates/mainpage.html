@@ -2,7 +2,9 @@
 {% block content %}
 
     <div class="main">
-
+        <form id="deleteForm" action="{% url "delete" %}" method="post">
+{#            <input name="submit" type="submit" value="0">#}
+        </form>
         <ul class="top-nav" id="top-nav" style="margin-top: 5px">
 {#            <li id="user-name"></li>#}
             <li><a href="{% url "collegeList" %}" class="logo square"><button class="btn btn-primary" style="background-color: #4285F4">INtERM</button></a></li>
@@ -51,7 +53,15 @@
     </div>
 
     <script type="text/javascript">
-                for(let j = 7; j < 21; j++){
+
+        {#window.addEventListener('loadstart', function() {#}
+        {#                                    alert('hello!');#}
+        {#                                  }, false);#}
+
+
+        function8();
+
+        for(let j = 7; j < 21; j++){
             document.getElementById("hours").innerHTML += `<p>${j}</p>`
         }
 
@@ -59,7 +69,7 @@
             document.getElementById("main-table").innerHTML += `<p style="line-height: 53px; text-align: center; color: rgba(0, 0, 0, 0.15)">---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>`
         }
 
-        // {# function1 : The function that shows the courses of clicked college #}
+        // function1 : The function that shows the courses of clicked college
         function function1(rawCollege){
             let url = "http://127.0.0.1:8000/api/course-list/";
             fetch(url).then((response) => response.json())
@@ -82,7 +92,7 @@
                 })
          }
 
-        // {# function2 : The function that put the clicked course on the main table #}
+        // function2 : The function that put the clicked course on the main table
         function function2(courseId){
 
             Promise.all([
@@ -122,7 +132,7 @@
                                     `<div class="${courseId}">
                                         <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;" onmouseover="">
                                             <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">x</button>
+                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -132,7 +142,7 @@
                                             top: ${top}px;
                                             right: ${right2}px;" onmouseover="">
                                             <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">x</button>
+                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -142,7 +152,7 @@
                                 for(let k in listOfED){
                                     if(listOfED[k].id == listOfCourses[i].examDate){
                                         form.innerHTML += `<div id="${courseId}">
-                                                                <input type="hidden" name="id-${courseId}" value="${courseId}">
+                                                                <input type="hidden" name="courseId-${courseId}" value="${courseId}">
                                                                 <input type="hidden" name="code-${courseId}" value="${listOfCourses[i].code}">
                                                                 <input type="hidden" name="title-${courseId}" value="${listOfCourses[i].title}">
                                                                 <input type="hidden" name="professor-${courseId}" value="${listOfCourses[i].professor}">
@@ -159,7 +169,7 @@
                                 for(let k in listOfED) {
                                     if (listOfED[k].id == listOfCourses[i].examDate) {
                                         form.innerHTML += `<div id="${courseId}">
-                                                                <input type="hidden" name="id-${courseId}" value="${courseId}">
+                                                                <input type="hidden" name="courseId-${courseId}" value="${courseId}">
                                                                 <input type="hidden" name="code-${courseId}" value="${listOfCourses[i].code}">
                                                                 <input type="hidden" name="title-${courseId}" value="${listOfCourses[i].title}">
                                                                 <input type="hidden" name="professor-${courseId}" value="${listOfCourses[i].professor}">
@@ -177,7 +187,7 @@
                                             top: ${top}px;
                                             right: ${right1}px;" onmouseover="">
                                             <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">x</button>
+                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -195,7 +205,7 @@
             })
         }
 
-        // {# function3 : The function that when mouse pointer goes over the course name shows the course temporarily on the table | also the scriptions #}
+        // function3 : The function that when mouse pointer goes over the course name shows the course temporarily on the table | also the scriptions
         function function3(courseId){
             Promise.all([fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
                 fetch("http://127.0.0.1:8000/api/ws-list/").then(resp => resp.json()),
@@ -281,13 +291,13 @@
             })
          }
 
-        // {# function4 : The function that when mouse pointer goes out of the course name get the course out of the table | also the scriptions #}
+        // function4 : The function that when mouse pointer goes out of the course name get the course out of the table | also the scriptions
         function function4(){
             document.getElementById("temporary-table").innerHTML = ''
             document.getElementById("temporary-list").innerHTML = ''
          }
 
-         // {#function5 : The function for changing the color of the course on the table when mouse pointer goes over the x symbol #}
+         // function5 : The function for changing the color of the course on the table when mouse pointer goes over the x symbol
         function function5(courseId){
             for(let i = 0; i < 1000; i++){
                 let element = document.getElementsByClassName(`${courseId}`)[i]
@@ -295,13 +305,110 @@
             }
          }
 
-        // {# function7 : The function that delete the course from the main table after clicked the x symbol #}
+        // function7 : The function that delete the course from the main table after clicked the x symbol
         function function7(courseId){
             for(let i = 0; i < 1000; i++){
                 document.getElementsByClassName(`${courseId}`)[i].innerHTML = "";
                 document.getElementById(`${courseId}`).remove();
             }
         }
+
+        // function8 : The function for maintaining the courses on the main table
+        function function8(){
+
+            Promise.all([fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
+                        fetch("http://127.0.0.1:8000/api/student-choise/").then(resp => resp.json()),
+                        fetch("http://127.0.0.1:8000/api/ws-list/").then(resp => resp.json())])
+                        .then(function(data){
+                            let mainTable = document.getElementById("main-table")
+                            let listOfCourses = data[0];
+                            console.log('listOfCourses', listOfCourses);
+                            let choises = data[1];
+                            let listOfWS = data[2];
+                            for(let k in choises){
+                                for(let i in listOfCourses){
+                                    if(choises[k].courseId == listOfCourses[i].id){
+                                        let choiseId = choises[k].id;
+                                        let courseId = listOfCourses[i].id;
+                                        let wsId = listOfCourses[i].ws;
+                                        for(let j in listOfWS){
+                                            if(wsId == listOfWS[j].id){
+                                                let day1 = listOfWS[j].day1;
+                                                let start = listOfWS[j].start;
+                                                let time = listOfWS[j].time;
+                                                let height = 63 * time
+                                                let right1 = 271 * day1
+                                                let top = (start - 7) * 63 + 67
+                                                let day2;
+
+                                                if(listOfWS[j].day2 != null){
+                                                    day2 = listOfWS[j].day2;
+                                                    let right2 = 271 * day2
+                                                    mainTable.innerHTML +=
+                                                                        `<div class="${courseId}">
+                                                                            <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;" onmouseover="">
+                                                                                <figure class="">
+                                                                                    <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
+                                                                                    ${listOfCourses[i].code}<br>
+                                                                                    <strong>${listOfCourses[i].title}</strong><br>
+                                                                                    ${listOfCourses[i].professor}
+                                                                                </figure>
+                                                                            </div>
+                                                                            <div class="course square" style="height: ${height}px;
+                                                                                top: ${top}px;
+                                                                                right: ${right2}px;" onmouseover="">
+                                                                                <figure class="">
+                                                                                    <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
+                                                                                    ${listOfCourses[i].code}<br>
+                                                                                    <strong>${listOfCourses[i].title}</strong><br>
+                                                                                    ${listOfCourses[i].professor}
+                                                                                </figure>
+                                                                            </div>
+                                                                        </div>`;
+                                                }else{
+                                                    mainTable.innerHTML +=
+                                                                    `<div class="${courseId}">
+                                                                        <div class="course square" style="height: ${height}px;
+                                                                            top: ${top}px;
+                                                                            right: ${right1}px;" onmouseover="">
+                                                                            <figure class="">
+
+                                                                                <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
+                                                                                ${listOfCourses[i].code}<br>
+                                                                                <strong>${listOfCourses[i].title}</strong><br>
+                                                                                ${listOfCourses[i].professor}
+                                                                            </figure>
+                                                                        </div>
+                                                                    </div>`;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        })
+        }
+
+        // function for deleting a course from the main table after clicked on the x button
+        function function9(courseId, choiseId){
+            for(let i = 0; i < 1000; i++){
+                document.getElementsByClassName(`${courseId}`)[i].innerHTML = "";
+                document.getElementById(`${courseId}`).remove();
+            }
+
+            let deleteForm = document.getElementById('deleteForm');
+            deleteForm.innerHTML = `<input name="courseId" value="${courseId}">
+                                    <input name="id" value="${choiseId}">`
+
+            {#window.onload = document.deleteForm.Submit.click();#}
+
+            {#deleteForm.submit();#}
+
+            {#let dialog = confirm('Delete?');#}
+            {#if(dialog){#}
+            {#    deleteForm.submit();#}
+            {# }#}
+         }
 
     </script>
 
