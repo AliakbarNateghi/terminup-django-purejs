@@ -2,18 +2,21 @@
 {% block content %}
 
     <div class="main">
-        <form id="deleteForm" action="{% url "delete" %}" method="post">
-{#            <input name="submit" type="submit" value="0">#}
-        </form>
+        {{ request.user.id|json_script:"user_id" }}
         <ul class="top-nav" id="top-nav" style="margin-top: 5px">
-{#            <li id="user-name"></li>#}
-            <li><a href="{% url "collegeList" %}" class="logo square"><button class="btn btn-primary" style="background-color: #4285F4">INtERM</button></a></li>
+            <li><a href="{% url "collegeList" %}" class="logo square"><button class="btn btn-primary" style="background-color: #4285F4">TERMINA</button></a></li>
             <li><a href="{% url "print" %}" class="print"><button class="btn btn-danger" style="background-color: #DB4437">چاپ برنامه</button></a></li>
             <li><a href="{% url "donate" %}" class="donate"><button class="btn btn-warning" style="background-color: #F4B400; color: white">حمایت مالی</button></a></li>
             <li>
-                <form id="save-program" action="{% url "addCourse" %}" method="post" style="width: 50px">
+                <form id="deleteForm" action="{% url "deletee" %}" method="post" style="width: 10px">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-primary save" value="ذخیره برنامه">
+                    <input onmouseover="" name="submit" type="submit" class="btn btn-primary delete" value="تایید حذفیات">
+                </form>
+            </li>
+            <li>
+                <form id="save-program" action="{% url "addCourse" %}" method="post" style="width: 10px">
+                    {% csrf_token %}
+                    <input name="submit" type="submit" class="btn btn-primary save" value="تایید اضافه ها">
                 </form>
             </li>
             <li><a href="{% url "about" %}" class="about"><button class="btn btn-success" style="background-color: #0F9D58">درباره ما</button></a></li>
@@ -54,12 +57,10 @@
 
     <script type="text/javascript">
 
-        {#window.addEventListener('loadstart', function() {#}
-        {#                                    alert('hello!');#}
-        {#                                  }, false);#}
+        let user_id = JSON.parse(document.getElementById('user_id').textContent);
+        console.log('user-id', user_id)
 
-
-        function8();
+        window.addEventListener('load', function8(user_id));
 
         for(let j = 7; j < 21; j++){
             document.getElementById("hours").innerHTML += `<p>${j}</p>`
@@ -84,7 +85,6 @@
                         for(let i in data){
                             if(1 == data[i].college){
                                 item = data[i].title;
-                                // {#console.log(data[i].id)#}
                                 courseList.innerHTML += `<option class="courseButton" onclick="function2(${ data[i].id })" onmouseover="function3(${data[i].id})" onmouseout="function4()">${ item }</option><br>`
                             }
                         }
@@ -103,7 +103,6 @@
                 fetch("http://127.0.0.1:8000/api/student-choise/").then(resp => resp.json()),
             ]).then(function(data){
                 let form = document.getElementById("save-program");
-                let sumOfUnits = document.getElementById('units');
                 let listOfCourses = data[0];
                 let listOfWS = data[1];
                 let listOfED = data[2];
@@ -130,9 +129,9 @@
                                 let right2 = 271 * day2
                                 mainTable.innerHTML +=
                                     `<div class="${courseId}">
-                                        <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;" onmouseover="">
-                                            <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
+                                        <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;">
+                                            <figure>
+                                                <button class="x square btn-danger btn" onclick="function7(${courseId})"  style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -140,9 +139,9 @@
                                         </div>
                                         <div class="course square" style="height: ${height}px;
                                             top: ${top}px;
-                                            right: ${right2}px;" onmouseover="">
-                                            <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
+                                            right: ${right2}px;">
+                                            <figure>
+                                                <button class="x square btn-danger btn" onclick="function7(${courseId})"  style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -165,7 +164,6 @@
                                     }
                                 }
                             }else{
-                                {#form.innerHTML += `<div class="${courseId}"><input type="hidden" name="${courseId}" value="${courseId}"></div>`#}
                                 for(let k in listOfED) {
                                     if (listOfED[k].id == listOfCourses[i].examDate) {
                                         form.innerHTML += `<div id="${courseId}">
@@ -185,9 +183,9 @@
                                     `<div class="${courseId}">
                                         <div class="course square" style="height: ${height}px;
                                             top: ${top}px;
-                                            right: ${right1}px;" onmouseover="">
-                                            <figure class="">
-                                                <button class="x square" onclick="function7(${courseId})" onmouseover="function5(${courseId})" onmouseout="function2(${courseId})" style="float: left">&times;</button>
+                                            right: ${right1}px;">
+                                            <figure>
+                                                <button class="x square btn-danger btn" onclick="function7(${courseId})" style="float: left">&times;</button>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -238,7 +236,7 @@
                                         <div class="course square temporary" style="height: ${height}px;
                                             top: ${top}px;
                                             right: ${right1}px;">
-                                            <figure class="">
+                                            <figure>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -247,7 +245,7 @@
                                         <div class="course square temporary" style="height: ${height}px;
                                             top: ${top}px;
                                             right: ${right2}px;">
-                                            <figure class="">
+                                            <figure>
                                                 ${listOfCourses[i].code}<br>
                                                 <strong>${listOfCourses[i].title}</strong><br>
                                                 ${listOfCourses[i].professor}
@@ -259,7 +257,7 @@
                                                                 <div class="course square temporary" style="height: ${height}px;
                                                                     top: ${top}px;
                                                                     right: ${right1}px;">
-                                                                    <figure class="">
+                                                                    <figure>
                                                                         ${listOfCourses[i].code}<br>
                                                                         <strong>${listOfCourses[i].title}</strong><br>
                                                                         ${listOfCourses[i].professor}
@@ -314,7 +312,7 @@
         }
 
         // function8 : The function for maintaining the courses on the main table
-        function function8(){
+        function function8(studentId){
 
             Promise.all([fetch("http://127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
                         fetch("http://127.0.0.1:8000/api/student-choise/").then(resp => resp.json()),
@@ -322,64 +320,66 @@
                         .then(function(data){
                             let mainTable = document.getElementById("main-table")
                             let listOfCourses = data[0];
-                            console.log('listOfCourses', listOfCourses);
                             let choises = data[1];
                             let listOfWS = data[2];
                             for(let k in choises){
-                                for(let i in listOfCourses){
-                                    if(choises[k].courseId == listOfCourses[i].id){
-                                        let choiseId = choises[k].id;
-                                        let courseId = listOfCourses[i].id;
-                                        let wsId = listOfCourses[i].ws;
-                                        for(let j in listOfWS){
-                                            if(wsId == listOfWS[j].id){
-                                                let day1 = listOfWS[j].day1;
-                                                let start = listOfWS[j].start;
-                                                let time = listOfWS[j].time;
-                                                let height = 63 * time
-                                                let right1 = 271 * day1
-                                                let top = (start - 7) * 63 + 67
-                                                let day2;
+                                console.log(choises[k].student)
+                                if(choises[k].student == studentId){
+                                    console.log('it is executed')
+                                    for(let i in listOfCourses){
+                                        if(choises[k].courseId == listOfCourses[i].id){
+                                            let choiseId = choises[k].id;
+                                            let courseId = listOfCourses[i].id;
+                                            let wsId = listOfCourses[i].ws;
+                                            for(let j in listOfWS){
+                                                if(wsId == listOfWS[j].id){
+                                                    let day1 = listOfWS[j].day1;
+                                                    let start = listOfWS[j].start;
+                                                    let time = listOfWS[j].time;
+                                                    let height = 63 * time
+                                                    let right1 = 271 * day1
+                                                    let top = (start - 7) * 63 + 67
+                                                    let day2;
 
-                                                if(listOfWS[j].day2 != null){
-                                                    day2 = listOfWS[j].day2;
-                                                    let right2 = 271 * day2
-                                                    mainTable.innerHTML +=
+                                                    if(listOfWS[j].day2 != null){
+                                                        day2 = listOfWS[j].day2;
+                                                        let right2 = 271 * day2
+                                                        mainTable.innerHTML +=
+                                                                            `<div class="${courseId}">
+                                                                                <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;">
+                                                                                    <figure>
+                                                                                        <button class="x square btn-danger btn" onclick="function9(${courseId}, ${choiseId})" style="float: left">&times;</button>
+                                                                                        ${listOfCourses[i].code}<br>
+                                                                                        <strong>${listOfCourses[i].title}</strong><br>
+                                                                                        ${listOfCourses[i].professor}
+                                                                                    </figure>
+                                                                                </div>
+                                                                                <div class="course square" style="height: ${height}px;
+                                                                                    top: ${top}px;
+                                                                                    right: ${right2}px;">
+                                                                                    <figure>
+                                                                                        <button class="x square btn-danger btn" onclick="function9(${courseId}, ${choiseId})" style="float: left">&times;</button>
+                                                                                        ${listOfCourses[i].code}<br>
+                                                                                        <strong>${listOfCourses[i].title}</strong><br>
+                                                                                        ${listOfCourses[i].professor}
+                                                                                    </figure>
+                                                                                </div>
+                                                                            </div>`;
+                                                    }else{
+                                                        mainTable.innerHTML +=
                                                                         `<div class="${courseId}">
-                                                                            <div class="course square" style="height: ${height}px; top: ${top}px;right: ${right1}px;" onmouseover="">
-                                                                                <figure class="">
-                                                                                    <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
-                                                                                    ${listOfCourses[i].code}<br>
-                                                                                    <strong>${listOfCourses[i].title}</strong><br>
-                                                                                    ${listOfCourses[i].professor}
-                                                                                </figure>
-                                                                            </div>
                                                                             <div class="course square" style="height: ${height}px;
                                                                                 top: ${top}px;
-                                                                                right: ${right2}px;" onmouseover="">
-                                                                                <figure class="">
-                                                                                    <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
+                                                                                right: ${right1}px;">
+                                                                                <figure>
+                                                                                    <button class="x square btn-danger btn" onclick="function9(${courseId}, ${choiseId})" style="float: left">&times;</button>
                                                                                     ${listOfCourses[i].code}<br>
                                                                                     <strong>${listOfCourses[i].title}</strong><br>
                                                                                     ${listOfCourses[i].professor}
                                                                                 </figure>
                                                                             </div>
                                                                         </div>`;
-                                                }else{
-                                                    mainTable.innerHTML +=
-                                                                    `<div class="${courseId}">
-                                                                        <div class="course square" style="height: ${height}px;
-                                                                            top: ${top}px;
-                                                                            right: ${right1}px;" onmouseover="">
-                                                                            <figure class="">
-
-                                                                                <button class="x square" onclick="function9(${courseId}, ${choiseId})" onmouseover="function5(${courseId})" onmouseout="function8()" style="float: left">&times;</button>
-                                                                                ${listOfCourses[i].code}<br>
-                                                                                <strong>${listOfCourses[i].title}</strong><br>
-                                                                                ${listOfCourses[i].professor}
-                                                                            </figure>
-                                                                        </div>
-                                                                    </div>`;
+                                                    }
                                                 }
                                             }
                                         }
@@ -389,25 +389,18 @@
                         })
         }
 
-        // function for deleting a course from the main table after clicked on the x button
+        {#// function for deleting a course from the main table after clicked on the x button#}
         function function9(courseId, choiseId){
+
+            let deleteForm = document.getElementById('deleteForm');
+            deleteForm.innerHTML += `<input type="hidden" name="courseId-${courseId}" value="${courseId}">
+                                    <input type="hidden" name="id-${courseId}" value="${choiseId}">`
+
             for(let i = 0; i < 1000; i++){
                 document.getElementsByClassName(`${courseId}`)[i].innerHTML = "";
                 document.getElementById(`${courseId}`).remove();
             }
 
-            let deleteForm = document.getElementById('deleteForm');
-            deleteForm.innerHTML = `<input name="courseId" value="${courseId}">
-                                    <input name="id" value="${choiseId}">`
-
-            {#window.onload = document.deleteForm.Submit.click();#}
-
-            {#deleteForm.submit();#}
-
-            {#let dialog = confirm('Delete?');#}
-            {#if(dialog){#}
-            {#    deleteForm.submit();#}
-            {# }#}
          }
 
     </script>

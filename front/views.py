@@ -5,12 +5,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, FormView
 from django.urls import reverse_lazy, reverse
 from sharitz.models import studentChoise, course, College, ExamDate
-from . import custom
-from .custom import WeeklyChoise, ExamChoise
 from .forms import CreateUserForm
 
 
@@ -51,22 +48,14 @@ class registerView(FormView):
         return super(registerView, self).get(*args, **kwargs)
 
 
+@login_required(redirect_field_name='index')
 def aboutView(request):
     return render(request, 'about.html')
 
 
+@login_required(redirect_field_name='index')
 def donateView(request):
     return render(request, 'donate.html')
-
-
-def test(request):
-    return render(request, 'test.html')
-
-
-class mainList(LoginRequiredMixin, ListView):
-    model = course
-    context_object_name = 'courses'
-    template_name = 'mainpage.html'
 
 
 class collegeList(LoginRequiredMixin, ListView):
@@ -78,8 +67,8 @@ class collegeList(LoginRequiredMixin, ListView):
 listOfUsed = []
 
 
-@login_required(redirect_field_name='index')
 @csrf_exempt
+@login_required(redirect_field_name='index')
 def addCourse(request):
     if request.method == 'POST':
         student = request.user
@@ -115,11 +104,38 @@ def addCourse(request):
 class printView(LoginRequiredMixin, ListView):
     model = studentChoise
     context_object_name = 'choises'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['choises'] = context['choises'].filter(student=self.request.user)
+
+        return context
+
     template_name = 'print.html'
 
 
 @login_required(redirect_field_name='index')
+def DeleteView(request):
+    if request.method == 'POST':
+        student = request.user
+        for i in range(1000):
+            choiseId = request.POST.get('id-' + str(i))
+            courseId = request.POST.get('courseId-' + str(i))
+
+            if courseId is not None:
+                for a in listOfUsed:
+                    if a == courseId:
+                        listOfUsed.remove(a)
+
+                deleteItem = studentChoise.objects.get(id=choiseId)
+                deleteItem.delete()
+
+    return HttpResponseRedirect(reverse('collegeList'))
+
+
+@login_required(redirect_field_name='index')
 def deleteView(request):
+    student = request.user
     if request.method == 'POST':
         choiseId = request.POST.get('id')
         courseId = request.POST.get('courseId')

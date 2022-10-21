@@ -8,7 +8,6 @@ class CreateUserForm(UserCreationForm):
     email = forms.EmailField(max_length=256,
                              widget=forms.EmailInput(attrs={'placeholder': 'abcdefu@gmail.com', 'size': "40",
                                                             'class': "form-control form-control-lg"}))
-    # phone = forms.PhoneNumberField()
 
     password1 = forms.CharField(max_length=100, widget=forms.PasswordInput(
         attrs={'class': 'form-control form-control-lg', 'placeholder': '**********'}))
