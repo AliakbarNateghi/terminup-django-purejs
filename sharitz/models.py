@@ -2,12 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Student(models.Model):
-    student = models.ForeignKey(User, null=True,
-                                on_delete=models.CASCADE,
-                                related_name='students')
-
-
 class ws(models.Model):  # WeeklySchedule
     day1 = models.IntegerField(blank=True, null=True)  # Saturday: 0 , ... , Friday: 6
     day2 = models.IntegerField(blank=True, null=True)
@@ -37,6 +31,9 @@ class College(models.Model):
 
 
 class course(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True,
+                             blank=True)
+
     college = models.ForeignKey(College, on_delete=models.CASCADE, null=True,
                                 blank=True)
 
