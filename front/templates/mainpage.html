@@ -72,7 +72,7 @@
 
         // function1 : The function that shows the courses of clicked college
         function function1(rawCollege){
-            let url = "127.0.0.1:8000/api/course-list/";
+            let url = "https://termina.up.railway.app/api/course-list/";
             fetch(url).then((response) => response.json())
                 .then(function(data){
 
@@ -96,11 +96,11 @@
         function function2(courseId){
 
             Promise.all([
-                fetch("127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/ws-list/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/ed-list/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/course-create/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/student-choise/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/course-list/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/ws-list/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/ed-list/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/course-create/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/student-choise/").then(resp => resp.json()),
             ]).then(function(data){
                 let form = document.getElementById("save-program");
                 let listOfCourses = data[0];
@@ -205,9 +205,9 @@
 
         // function3 : The function that when mouse pointer goes over the course name shows the course temporarily on the table | also the scriptions
         function function3(courseId){
-            Promise.all([fetch("127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/ws-list/").then(resp => resp.json()),
-                fetch("127.0.0.1:8000/api/ed-list/").then(resp => resp.json()),
+            Promise.all([fetch("https://termina.up.railway.app/api/course-list/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/ws-list/").then(resp => resp.json()),
+                fetch("https://termina.up.railway.app/api/ed-list/").then(resp => resp.json()),
             ]).then(function(data){
                 let listOfCourses = data[0];
                 let listOfWS = data[1];
@@ -314,9 +314,9 @@
         // function8 : The function for maintaining the courses on the main table
         function function8(studentId){
 
-            Promise.all([fetch("127.0.0.1:8000/api/course-list/").then(resp => resp.json()),
-                        fetch("127.0.0.1:8000/api/student-choise/").then(resp => resp.json()),
-                        fetch("127.0.0.1:8000/api/ws-list/").then(resp => resp.json())])
+            Promise.all([fetch("https://termina.up.railway.app/api/course-list/").then(resp => resp.json()),
+                        fetch("https://termina.up.railway.app/api/student-choise/").then(resp => resp.json()),
+                        fetch("https://termina.up.railway.app/api/ws-list/").then(resp => resp.json())])
                         .then(function(data){
                             let mainTable = document.getElementById("main-table")
                             let listOfCourses = data[0];
